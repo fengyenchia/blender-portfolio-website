@@ -59,13 +59,13 @@ export default async function WeeklyContentPage({ params }: { params: Promise<{ 
         style={{ backgroundImage: `url('${bannerImage}')` }}
       >
         <div className="absolute inset-0" />
-          <h1 className="w-full px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2 md:-translate-y-0 text-md md:text-4xl font-bold text-zinc-50 text-center">
+          <h1 className="w-full px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2 md:translate-y-0 text-md md:text-4xl font-bold text-zinc-50 text-center">
             {currentWeek.name}
           </h1>
       </div>
 
       {/* 💡 3. 只在真正需要排版的 MDX 內文區塊加上 prose */}
-      <div className="max-w-6xl max-w-none mx-auto px-6 py-8 md:p-12 prose prose-neutral text-neutral-900">
+      <div className="max-w-6xl mx-auto px-6 py-8 md:p-12 prose prose-neutral text-neutral-900">
         <MDXContent />
       </div>
     </div>
