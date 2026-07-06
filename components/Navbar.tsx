@@ -46,10 +46,10 @@ export function Navbar() {
         name: course.name,
         courseSlug: `/homework/${course.slug}`, // 用作滑鼠懸停比對的唯一 Key
         weeks: course.weeks.map((w) => ({
-          name: w.name,
+          name: w.navName ?? w.name,
           href: `/homework/${course.slug}/${w.slug}`,
           children: w.children?.map((child) => ({
-            name: child.name,
+            name: child.navName ?? child.name,
             href: `/homework/${course.slug}/${w.slug}/${child.slug}`,
           })),
         })),
@@ -61,10 +61,10 @@ export function Navbar() {
         name: course.name,
         courseSlug: `/project/${course.slug}`,
         weeks: course.weeks.map((w) => ({
-          name: w.name,
+          name: w.navName ?? w.name,
           href: `/project/${course.slug}/${w.slug}`,
           children: w.children?.map((child) => ({
-            name: child.name,
+            name: child.navName ?? child.name,
             href: `/project/${course.slug}/${w.slug}/${child.slug}`,
           })),
         })),
@@ -76,10 +76,10 @@ export function Navbar() {
         name: course.name,
         courseSlug: `/paper/${course.slug}`,
         weeks: course.weeks.map((w) => ({
-          name: w.name,
+          name: w.navName ?? w.name,
           href: `/paper/${course.slug}/${w.slug}`,
           children: w.children?.map((child) => ({
-            name: child.name,
+            name: child.navName ?? child.name,
             href: `/paper/${course.slug}/${w.slug}/${child.slug}`,
           })),
         })),
@@ -137,7 +137,7 @@ export function Navbar() {
                           {/* 第三層：每週週次（只有這裡維持 <HoveredLink> 可點擊跳轉） */}
                           {activeCourse === child.courseSlug && child.weeks && child.weeks.length > 0 && (
                             <div className="absolute top-0 right-[119%] z-100">
-                              <div className="bg-white rounded-xs shadow-md border border-neutral-100 p-3 flex flex-col gap-2 min-w-[220px]">
+                              <div className="bg-white rounded-xs shadow-md border border-neutral-100 p-3 flex flex-col gap-2 min-w-55">
                                 {child.weeks.map((week) => (
                                   <div
                                     key={week.href}
@@ -158,7 +158,7 @@ export function Navbar() {
 
                                     {activeGroup === week.href && week.children?.length && (
                                       <div className="absolute top-0 right-[105%] z-100">
-                                        <div className="bg-white rounded-xs shadow-md border border-neutral-100 p-3 flex flex-col gap-2 min-w-[220px]">
+                                        <div className="bg-white rounded-xs shadow-md border border-neutral-100 p-3 flex flex-col gap-2 min-w-55">
                                           {week.children.map((detail) => (
                                             <HoveredLink key={detail.href} href={detail.href}>
                                               <span className="text-xs whitespace-nowrap block py-1 px-1 rounded-xs hover:text-neutral-900 text-neutral-500 transition-colors cursor-pointer">

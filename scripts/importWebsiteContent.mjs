@@ -489,16 +489,16 @@ function writeMdx(page, title, body, meta) {
   const links = meta.links
     .map((link) => `    { label: "${jsString(escapeMdx(link.label))}", text: "${jsString(escapeMdx(link.text))}", href: "${jsString(link.href)}" }`)
     .join(",\n");
+  const hasHours = meta.hours !== null && meta.hours !== undefined;
   const hours = Array.isArray(meta.hours)
     ? `[\n${meta.hours.map((hour) => `    "${jsString(escapeMdx(hour))}"`).join(",\n")}\n  ]`
-    : meta.hours === null || meta.hours === undefined
-      ? "0"
-      : typeof meta.hours === "number"
-        ? String(meta.hours)
-        : `"${jsString(escapeMdx(meta.hours))}"`;
+    : typeof meta.hours === "number"
+      ? String(meta.hours)
+      : `"${jsString(escapeMdx(meta.hours ?? ""))}"`;
+  const hoursLine = hasHours ? `  hours={${hours}}\n` : "";
 
-  const metaBlock = meta.hours || links
-    ? `<MarkdownMeta\n  hours={${hours}}\n  links={[\n${links}\n  ]}\n/>\n\n`
+  const metaBlock = hasHours || links
+    ? `<MarkdownMeta\n${hoursLine}  links={[\n${links}\n  ]}\n/>\n\n`
     : "";
 
   const content = `${metaBlock}${body}\n`;
@@ -514,7 +514,7 @@ for (const page of pages) {
   const title = page.titleOverride ?? parsed.title;
   const body = parsed.body;
   const links = extractButtons(html, page);
-  const hours = extractDetailedHours(html);
+  const hours = page.category === "paper" ? undefined : extractDetailedHours(html);
 
   writeMdx(page, title, body, { links, hours });
 
@@ -530,7 +530,26 @@ const byCategory = {
 };
 
 function itemFor(page, indent = "        ") {
-  return `${indent}{ name: "${escapeMdx(page.title)}",\n${indent}  slug: "${page.slug}",\n${indent}  image: "${page.image}"\n${indent}}`;
+  return `${indent}{ name: "${escapeMdx(page.title)}",\n${indent}  navName: "${navNameFor(page)}",\n${indent}  slug: "${page.slug}",\n${indent}  image: "${page.image}"\n${indent}}`;
+}
+
+function navNameFor(page) {
+  if (page.category === "homework") {
+    return page.slug.replace(/^CG_/, "").replace("_", "");
+  }
+
+  if (page.category === "project") {
+    return page.slug
+      .replace(/^CG_Proj/, "PROJECT")
+      .replace(/_/g, "_")
+      .toUpperCase();
+  }
+
+  if (page.category === "paper") {
+    return page.slug.replace(/^CG_/, "").toUpperCase();
+  }
+
+  return escapeMdx(page.title);
 }
 
 function weeksFor(category) {
@@ -545,7 +564,7 @@ function weeksFor(category) {
         const children = byCategory.project.filter((page) => page.group === group.slug);
         const image = children[0]?.image ?? "/thumbs/default/banner.png";
         const childItems = children.map((page) => itemFor(page, "          ")).join(",\n");
-        return `        { name: "${group.name}",\n          slug: "${group.slug}",\n          image: "${image}",\n          children: [\n${childItems}\n          ]\n        }`;
+        return `        { name: "${group.name}",\n          navName: "${group.name}",\n          slug: "${group.slug}",\n          image: "${image}",\n          children: [\n${childItems}\n          ]\n        }`;
       })
       .join(",\n");
   }
@@ -559,6 +578,7 @@ const allData = `// config/AllData.ts
 
 export interface WeekItem {
   name: string;
+  navName?: string;
   slug: string;
   image?: string;
   children?: WeekItem[];

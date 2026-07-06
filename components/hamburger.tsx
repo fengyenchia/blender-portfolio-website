@@ -133,7 +133,7 @@ export default function Hamburger() {
                                           : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
                                       }`}
                                     >
-                                      {week.name}
+                                      {week.navName ?? week.name}
                                     </Link>
                                   );
                                 })}

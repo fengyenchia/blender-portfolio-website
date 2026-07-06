@@ -19,15 +19,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Yen-Chia, Feng",
   description: "Blender Portfolio Website",
-  // icons: {
-  //   icon: "/favicon.ico",
-  // },
   keywords: ["Blender", "Geometry Nodes", "Portfolio", "3D", "Animation"],
   authors: [{ name: "Yen-Chia Feng" }],
   openGraph: {
     title: "Yen-Chia, Feng's Blender Portfolio Website",
     description: "A showcase of my Blender works, including 3D modeling, animation, and geometry nodes projects.",
-    url: "https://Yen-Chia-Feng-Blender-Portfolio-Website.vercel.app/",
+    url: "https://blender-portfolio-website.vercel.app/",
     siteName: "Yen-Chia, Feng",
     images: [
       {
