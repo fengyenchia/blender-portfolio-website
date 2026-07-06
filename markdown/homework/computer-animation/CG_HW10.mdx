@@ -1,0 +1,172 @@
+<MarkdownMeta
+  hours={3}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1unApRgp8iiTofnvxOeDOHsw0yVUysFMr?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/file/d/14O7pa8i2XywoaPfnP5Ai3SIkYmNRdxIq/view?usp=drive_link" }
+  ]}
+/>
+
+**最終檔案（zip）**
+
+**可調式參數控制區操縱影片**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/fw0UEBGsh90" title="YouTube video 1" />
+
+**最終成果**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/TPh7QEJw6Pg" title="YouTube video 2" />
+
+## 作品技術概念
+
+以六種 Primitives 作為 particle，以七種 Primitives 作為基底模型，製作 Particle Effects，並展現 Particle 散射與聚合的動畫。各物件的切換需設置 Menu Switch Node，讓使用者能夠切換不同的 p rimitives、meterial、particle motion 。
+作品環境以 Volume Light 搭配 Noise Texture 遮光片進行打光（使用 EEVEE 引擎），Animation 總共有 120 格（5秒）。
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw10/2026-05-02-232807_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<ImageCarousel
+  label="CG_HW10 slideshow 1"
+  images={[
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-212237.png", caption: "用 distribute points on faces 將 mesh 上隨機分布點，並設定 density max(=500)，代表 particle 的數量。\n加入 instance on points，將 instance 接口連到前面 group input，之後在加入 primitives 當作 instance，最後調整旋轉與縮放。" },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-212308.png", caption: "再來製作 particle 的散射與聚合，透過 noise texture 搭配 scene time 讓 particle 產生隨時間隨機抖動效果。因為我要製作兩種 particle motion，所以分別加入 set position，在 offset 接口接上 multiply，【下部分】把 noise texture 的 color 接上，另一端設定散射與聚合的數值（0-&gt;1），【上部分】是用音樂節拍控制位置。" },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-221836.png", caption: "最後把所有 node 群組成 node grope" },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-222136.png", caption: "在有 particle effect node group 的畫面中，首先加入 particle effect 的第一個輸入參數（基底物件），這決定 particle 聚合時會是什麼形狀。再用 meun switch 製作選單。" },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-222200.png", caption: "再加入 particle effect 的第二個輸入參數（instance），這決定 particle 本身是什麼形狀。再用 meun switch 製作選單。" },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-222856.png", caption: "設定材質（一樣用 menu switch 做切換選單），與整體大小、旋轉" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：製作 particle effect
+
+<ImageCarousel
+  label="CG_HW10 slideshow 2"
+  images={[
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-212237.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-212307.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-212308.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-215944.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-220034.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-221309.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-220611.png", caption: " " }
+  ]}
+/>
+
+1. 首先，透過 distribute points on faces 在 mesh 上隨機分布點，點的數量（density max）暫時設為 500，並連到 group input 。seed 也 連到 group input，等等下 keyframe 時會用到。
+2. 加入 instance on points，將剛剛的 node 連到 points 上。要改變 points 上的 instance，需要加入一些會用到的 primitives，不過目前先不在這裡加，之後會讓它變成 Menu Switch，所以先將 instances 連到 group input。
+3. 底下的旋轉與縮放節點就和 [HW07](hw07.html) 一樣，透過 scene time 搭配 random value，讓 每個 particle 在每個 frame 的旋轉值都不同，縮放值也是透過 random value，讓畫面中 particle 都大小不一。
+4. 再來是設定 particle 的 散射與聚合 ，可以看到圖2右邊有兩塊淺藍色的，這是我設定兩個不同模式的 particle motion，上面是會受到音樂影響動態，而下面不會。
+- 先製作下面的 node，新增一個 set position，接著要改變它 offset 的部分。首先，新增 noise texture 並將 senen time 接 multiply（底下 value=0.000005）再接到 distortion 製作出 particle 原地抖動效果，再把 color 接口接到後面 multiply 的其中一個 vector，另一個要接到 group input，調整數值可以發現 1 會散射，0 會聚合。
+- 上面部分也是類似，只是要用音樂來控制 particle 的位置，所以將 offset 的 input 做了些調整。我希望可以用一個值（一個 keyframe）同時控制 XYZ 的位置，所以先用 seperate XYZ 單獨調整一個維度的值，再將此值連到 combine XYZ 的三個維度上，後面就上底下的 node 一致。
+- 最後加上 Menu Switch，將兩個 set position 連到選項中，再將最上面的 menu 連到前面的 group input，重新命名一下就完成選單切換了。
+5. 開始加入音樂控制，先從最上面加號選取 video editing，將需要的音樂拉入底下時間軸。再回到 geometry node，將剛剛 seperate XYZ 中的 x 打一個 keyfrme，要記得保持選到這個 node，接著在底下時間軸切到 graph editor，按 channel &gt; sound to samples，選擇要影響 particle 的音樂（和剛剛匯入的一樣），然後就完成了。
+6. 把這個帶有許多控制項與切換選單的 node 群組，命名為 particle effect。
+
+### step 1-2：製作有許多 primitives 的切換菜單
+
+<ImageCarousel
+  label="CG_HW10 slideshow 3"
+  images={[
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-222136.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-222200.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-222856.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-223029.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-223116.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-223947.png", caption: " " }
+  ]}
+/>
+
+1. 要看到 particle effect，需將剛剛製作 particle effect node group 的 input 接上許多 mesh 和 instance，且需將它們做成選單，我挑選了一些 primitives，並將它們都連到 menu switch 上，再分別接到 mesh 和 instances 的 input 上。
+2. 在 instances 的 p rimitives 上，因為它們是 particle 本人，所以我做了更細部的調整，將每個形狀的參數（半徑、高度等）都加到可調式參數區，方便調整。
+3. 再來製作 particle 的材質，我選了紅黃藍並用 menu switch 做切換，不過還有更細部的調整。
+- 切換到 shading 面板，先將紅色材質加上 texture coordinate、seperation XYZ（選一個想要漸層的方向）、再用 color ramp 做漸層
+- 黃色則做一個不一樣的效果，加入 texture coordinate、noise texture，可以做出噪波紋理（可在細調 noise texture 的參數），再用 color ramp 調整黑白噪波的顏色。
+4. 最後回到 geometry node，加入 transform geometry 調整整體大小，而旋轉部分我想讓它自動轉，所以就用 scene time 來控制，並用 combine XYZ 讓　xy 方向都轉，multiply 可以控制旋轉速度。
+
+### step 2-1：打光、製作環境
+
+<ImageCarousel
+  label="CG_HW10 slideshow 4"
+  images={[
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-224410.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-224431.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-224639.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-224906.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-225006.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-225019.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-225632.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-225829.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-230014.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-230155.png", caption: " " }
+  ]}
+/>
+
+1. 新增一個聚光燈，將功率調大，照亮 particle 們，如圖 1、2
+2. 再來要製作體積光
+- 新增一個 cube，將 cube 放大到可以完全包住整個場景（包含 particle、燈光）
+- 打開上方 shading 面板，並將右側材質中的 surface 改成 none，volume 改成 volume scatter，最後將 density 調小，直到場景中 cube 變成半透明、避免太霧，改變體積顏色後，體積光就做好了，如圖3、4
+3. 再來要將燈光變得有紋理，新增一個平面，移動至聚光燈**光源**處
+- 在 shading 面板中開始加入材質
+- 使用 noise texture 可以製作噪波紋理，並透過 color ramp 將黑的變更黑，白的變更白，讓它們的界線變得明顯一些
+- 這樣就完成燈光紋理了，最後將 color 接到 principled BSDF 的 alpha，可以讓黑色部分消失（變透明），讓之後燈光照射可以存在透光與不透光的部分
+4. 為了讓之後移動燈光時，紋理可以跟著移動，可以先選中材質平面，再選中燈光，按下 ctrl+p 可以設定父層，之後移動燈光時它就會帶著平面一起移動了，如圖7
+5. 因為目前不夠亮，所以我加入一顆日光，放在 (0,0,0)，並調整燈光強度
+6. 調整攝影機位置，照到 particle 們，如圖9，可以關閉上面的 viewport overlays，讓場景變乾淨
+7. 最後在右邊 world 區域可以調整場景的顏色，我把整體調黑一點
+
+### step 2-2：將 particle 加上光暈
+
+<ImageCarousel
+  label="CG_HW10 slideshow 5"
+  images={[
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-230444.png", caption: " " }
+  ]}
+/>
+
+1. 進入 compositing 面板，現在會看到一片黑，先勾選 use node，就可以開始加入節點
+2. 使用 glare node 可以為物體增加光暈效果，我加入了兩個不同的 glare 來疊加
+3. 在最後加入 viewer 節點後，按下 f12 渲染出一張圖，就可以在背景看到預覽圖了
+
+### step 3-1：設定 keyframe、調整 render 設定，作品完成！
+
+<ImageCarousel
+  label="CG_HW10 slideshow 6"
+  images={[
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-230826.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-231049.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-231101.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-231114.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-231126.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw10/2026-05-02-231159.png", caption: " " }
+  ]}
+/>
+
+1. 以下的參數區中，我將設定一些 keyframe，並設定動畫時長為 frame = 120
+- Particle contraction and divergence 是控制 particle 發散
+- 調整 seed 可以讓 particle 隨機變動
+2. 最後輸出因為有音樂，所以我選擇 FFmpeg Video，並調整編碼至 MPEG-4，可以輸入成 .mp4，聲音部分要改成 AAC，就完成了！
+
+## 自我評量與作品建議
+
+**9/10**
+
+這次製作過程很順利，結合了上週上課學的加入音樂的內容，與這週的 menu switch 方法，還有之前的 particle effect，所以沒有遇到什麼困難，耶！
+不過材質部分還不太熟悉，所以就透過問 ai 來學一些簡單的小效果（漸層、噪波），之後可以多看影片學習材質。
+**過程中遇到的困難：**
+這次沒有太大的困難。
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過上課製作的檔案來解決問題。
+另外看了一部製作 particle effect 的教學，雖然這次作品沒有參考到，但覺得蠻有趣的
+- [www.youtube.com/watch?v=eBNolzjnHtE](https://www.youtube.com/watch?v=eBNolzjnHtE)

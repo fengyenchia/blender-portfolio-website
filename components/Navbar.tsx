@@ -14,6 +14,7 @@ import { AllData } from "@/config/AllData";
 export function Navbar() {
   const [active, setActive] = useState<string | null>(null);
   const [activeCourse, setActiveCourse] = useState<string | null>(null);
+  const [activeGroup, setActiveGroup] = useState<string | null>(null);
   
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
@@ -27,6 +28,7 @@ export function Navbar() {
       setHidden(true);
       setActive(null);
       setActiveCourse(null);
+      setActiveGroup(null);
     } else if (diff < -5 || latest < 20) {
       setHidden(false);
     }
@@ -46,6 +48,10 @@ export function Navbar() {
         weeks: course.weeks.map((w) => ({
           name: w.name,
           href: `/homework/${course.slug}/${w.slug}`,
+          children: w.children?.map((child) => ({
+            name: child.name,
+            href: `/homework/${course.slug}/${w.slug}/${child.slug}`,
+          })),
         })),
       })),
     },
@@ -57,6 +63,10 @@ export function Navbar() {
         weeks: course.weeks.map((w) => ({
           name: w.name,
           href: `/project/${course.slug}/${w.slug}`,
+          children: w.children?.map((child) => ({
+            name: child.name,
+            href: `/project/${course.slug}/${w.slug}/${child.slug}`,
+          })),
         })),
       })),
     },
@@ -68,6 +78,10 @@ export function Navbar() {
         weeks: course.weeks.map((w) => ({
           name: w.name,
           href: `/paper/${course.slug}/${w.slug}`,
+          children: w.children?.map((child) => ({
+            name: child.name,
+            href: `/paper/${course.slug}/${w.slug}/${child.slug}`,
+          })),
         })),
       })),
     },
@@ -80,7 +94,7 @@ export function Navbar() {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={cn("fixed top-0 inset-x-0 w-full mx-auto z-50 shadow-xs", hidden && "pointer-events-none")}
     >
-      <Menu setActive={(val) => { setActive(val); if(!val) setActiveCourse(null); }}>
+      <Menu setActive={(val) => { setActive(val); if(!val) { setActiveCourse(null); setActiveGroup(null); } }}>
         <div className="w-full h-full flex items-center justify-center gap-16 mx-auto">
           
           {/* Logo */}
@@ -125,11 +139,37 @@ export function Navbar() {
                             <div className="absolute top-0 right-[119%] z-100">
                               <div className="bg-white rounded-xs shadow-md border border-neutral-100 p-3 flex flex-col gap-2 min-w-[220px]">
                                 {child.weeks.map((week) => (
-                                  <HoveredLink key={week.href} href={week.href}>
-                                    <span className="text-xs whitespace-nowrap block py-1 px-1 rounded-xs hover:text-neutral-900 text-neutral-500 transition-colors cursor-pointer">
-                                      {week.name}
-                                    </span>
-                                  </HoveredLink>
+                                  <div
+                                    key={week.href}
+                                    className="relative"
+                                    onMouseEnter={() => setActiveGroup(week.href)}
+                                  >
+                                    {week.children?.length ? (
+                                      <span className="text-xs whitespace-nowrap block py-1 px-1 rounded-xs hover:text-neutral-900 text-neutral-500 transition-colors cursor-default">
+                                        {week.name}
+                                      </span>
+                                    ) : (
+                                      <HoveredLink href={week.href}>
+                                        <span className="text-xs whitespace-nowrap block py-1 px-1 rounded-xs hover:text-neutral-900 text-neutral-500 transition-colors cursor-pointer">
+                                          {week.name}
+                                        </span>
+                                      </HoveredLink>
+                                    )}
+
+                                    {activeGroup === week.href && week.children?.length && (
+                                      <div className="absolute top-0 right-[105%] z-100">
+                                        <div className="bg-white rounded-xs shadow-md border border-neutral-100 p-3 flex flex-col gap-2 min-w-[220px]">
+                                          {week.children.map((detail) => (
+                                            <HoveredLink key={detail.href} href={detail.href}>
+                                              <span className="text-xs whitespace-nowrap block py-1 px-1 rounded-xs hover:text-neutral-900 text-neutral-500 transition-colors cursor-pointer">
+                                                {detail.name}
+                                              </span>
+                                            </HoveredLink>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
                                 ))}
                               </div>
                             </div>

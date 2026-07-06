@@ -2,6 +2,7 @@ import type { MDXComponents } from 'mdx/types'
 import Image from "next/image";
 import MarkdownMeta from "@/components/MarkdownMeta";
 import ImageCarousel from "@/components/ImageCarousel";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -11,5 +12,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     Image,
     MarkdownMeta,
     ImageCarousel,
+    YouTubeEmbed,
   }
 }

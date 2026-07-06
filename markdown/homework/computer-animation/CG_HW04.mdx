@@ -1,0 +1,214 @@
+<MarkdownMeta
+  hours={4.5}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1KBdWyLd7WAiFHn-ZxpKgczph0zvuieap?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/file/d/1NeF68a3-S2jvmxnXLsCGsJhVoNSm0MYH/view?usp=sharing" }
+  ]}
+/>
+
+**最終檔案（包含 .png 與 .blend 的壓縮檔）**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/OI_5qo6n5sI" title="YouTube video 1" />
+
+## 作品技術概念
+
+用 Geometry Node 製作政大 LOGO 的 Procedural LOGO Sequence Animation。
+首先，先將上週製作的 Image Sequence 導入 Geometry Nodes，並利用本週所習得之 Instance on Point 的概念，套疊至課堂所使用的 Animation node，再以 Geometry Proximity Node 搭配 slicePlane 進行 Extrusion instance 之控制。 再將 所有模型物件相關之 Geometry Nodes 集合在一個 NodeGroup 中，最後增加可調式參數控制區。
+Loop Animation 時長為 20 秒鐘 (F=480)，以 keyframe 去控制每個物件的動畫細節。
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw04/statics_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<ImageCarousel
+  label="CG_HW04 slideshow 1"
+  images={[
+    { src: "/images/homework/computer-animation/hw04/w4-node-1.png", caption: "創建一個 grid，當作 logo animation 的主體，並可調整點的數量與整體大小。此部分接到 instance on points 的 points 上。" },
+    { src: "/images/homework/computer-animation/hw04/w4-node-3.png", caption: "加入 cylinder 當作 plane 中每個點上的物體。分別將頂面、側面加上不同材質。將 cylinder 的底面位置向上調整到自己深度的一半，讓底部（無論如何縮放）永遠 z=0。\n此部分接到 instance on points 的 instance 上。" },
+    { src: "/images/homework/computer-animation/hw04/w4-node-2.png", caption: "匯入上週做的 image sequence（120張）、拆 uv。透過 scene time 控制每張圖片出現的時間。\n此部分接到 instance on points 的 selection 上。" },
+    { src: "/images/homework/computer-animation/hw04/w4-node-5.png", caption: "先建立一個平面當作 slicePlane。透過計算此平面與 logo 上每個點（instance）的距離，控制 instance 上下生長。\n此部分接到 instance on points 的 scale 上。" },
+    { src: "/images/homework/computer-animation/hw04/w4-node-6.png", caption: "完整 logo 的 node 長這樣" },
+    { src: "/images/homework/computer-animation/hw04/w4-node-7.png", caption: "最後將所有 node 群組成 node group\n，命名為 logo" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：logo 基本形狀
+
+<ImageCarousel
+  label="CG_HW04 slideshow 2"
+  images={[
+    { src: "/images/homework/computer-animation/hw04/w4-node-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-node-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-1-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-node-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-1-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-1-4.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-1-3.png", caption: " " }
+  ]}
+/>
+
+1. 首先新增一個平面，當作 logo 主體。調整平面的 size 與點的數量，點越多，logo 的細節會越多。將平面接到 instance on point 節點的 points 上，等同於輸入平面上 point 的位置資訊。
+2. 將 cylinder 接上 instance on point 節點的 instance 上，當作每個點上的物體（如圖3）。
+- 新增頂面與側面的材質。
+- 為了讓 instance 可以由底部開始上下伸縮（意思是物體中心需在底部），需將物體往上移動。因為需要移動 instance 深度的一半，所以我將 depth 變成可調式參數，並將此參數除以 2、接到 combine XYZ 的 Z 方向上，就可以調整 instance 的位置。
+3. 匯入上週做的 logo animation 的 image sequence（原本不知道如何加入多張圖片，詢問 ai 後發現只要一次匯入所有圖片即可）。
+接者拆 uv，就是**將 3D 物體的表面「攤平」成 2D 平面的過程** ，好讓 2D 的圖片能精準地貼在這塊 Grid 上面。
+因為我的 image sequence 只有 120 張，這次作業要做 10 秒（frame=240）以上（我做了 20 秒），所以須調整一下圖片出現的時間。
+- 首先，透過 scene time 的 frame 接到 image texture 的 frame 上，可以控制第 1 張圖片出現再frame=1、 第 2 張圖片出現再frame=2，以此類推。
+- 接者加入 math 節點的 ping-pong，意思是讓 image texture 可以**正常播完再倒著** **播**（scale=119 是前 119 張圖片要倒著播的意思）。
+- 因為我要做 20 秒（frame=480，因為 10 秒動畫會看起來太快），目前是 frame=240，所以我要將每張圖片連續出現兩個 frame（也就是 frame=1、frame=2 都出現第一張圖）。透過將 frame 乘以 0.5 可以達成（也可以想成 0.5 倍速播放）。
+- 最後將 image texture 的 color 接在 instance on point 節點的 selection 上，意思是將圖片與剛才的 instance 對應，有顏色的部分才讓 instance 顯現出來。
+- 目前如圖5
+4. 目前 node 如圖6，可調式參數區如圖7
+
+### step 1-2：以 slicePlane 控制 logo 上的 instance
+
+<ImageCarousel
+  label="CG_HW04 slideshow 3"
+  images={[
+    { src: "/images/homework/computer-animation/hw04/w4-2-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-node-5.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-2-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-2-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-node-7.png", caption: " " }
+  ]}
+/>
+
+1. 先新增一個平面，命名為 slicePlane，並在編輯模式將平面轉向，如圖1
+2. 把 slicePlane 物件從右上角 Outliner 區拖到 logo 的 Geometry Node Editor 裡，它會出現一個有 slicePlane 資訊的 object info 節點。再新增一個 Geometry Proximity 節點， 它可以計算 logo 上**每個點** 到 **slicePlane 表面** 之間 **最近的距離** 。
+- 將 object info 的 Geometry 連到 Geometry Proximity 的 Geometry 上，並新增 position 節點（讀取 logo 上點的位置）再連到 Geometry Proximity 的 sample position 上，可以計算出兩者之間的距離
+- 將 Geometry Proximity 的 distance 連到 instance on points 的 scale，這樣可以透過距離數值控制 logo 上 instance 的大小（高度）
+- 為了讓距離（instance 的高度）更可控，可以在 Geometry Proximity 後面 加上 map range 節點，能將原來的數值映射到我們想要的範圍間
+3. 這樣移動 slicePlane 就能發現 logo 上的 instance 會依與之距離而有高低變化了，如圖3、圖4
+4. 目前 logo 的 geometry node 都完成了，將所有 node 群組，命名為 logo
+
+### step 2-1：加入 keyframe
+
+<ImageCarousel
+  label="CG_HW04 slideshow 4"
+  images={[
+    { src: "/images/homework/computer-animation/hw04/w4-3-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-4.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-5.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-6.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-7.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-8.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-9.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-10.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-11.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-12.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-13.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-14.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-15.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-16.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-17.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-18.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-19.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-20.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-21.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-22.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-23.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-24.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-25.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-26.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-3.png", caption: " " }
+  ]}
+/>
+
+1. 首先我先讓 slicePlane 動起來，才能讓 logo 上的 instance 能夠自動有高低變化。
+- 這次不用 keyframe 的方式，而是用 **Driver。**Driver 是一種用函數或 數學表達式 來控制屬性值的方法。它可以用 python 來完成，不用手動加上每個 keyframe，非常方便。
+- 因為我想讓 slicePlane 來回動，且動的幅度大一些、速度慢一些，所以我將 Driver 的值設定成 # sin(frame * 0.04)*2 。sin(x) 的 x 越小，函數的週期越大，等同於走完一個波的時間越長，也就是速度越慢。sin(x)*k 的 k 越大，代表波的振幅越大，也就是來回的距離越遠、動的幅度越大。
+- 我不希望 slicePlane 全程影響 instance 高度，所以需要有範圍限制，因為可以用單行 python 來寫，所以完整的 driver 會是：# sin(frame * 0.04)*2 if (40 &lt;= frame &lt;= 200 or 280 &lt;= frame &lt;= 440) else 2，如果 frame 介於 40~200 或 280~440， slicePlane 就會動，否則就固定在與 logo 距離 1 公尺（因為有 map range 映射數值到 1），這樣讓動畫比較不會太重複、太枯燥。
+2. 在 logo 上我也設定一些 keyframe，像是調整 Instance 的整體高度、半徑，中間讓 instance 沿著 x 與 y 方向旋轉等，如圖2
+- 圖3-圖7：調整可調式參數區的 keyframe
+- 圖8-圖9：調整 logo 內部節點的 keyframe
+
+### step 3-1：新增燈光與環境
+
+<ImageCarousel
+  label="CG_HW04 slideshow 5"
+  images={[
+    { src: "/images/homework/computer-animation/hw04/w4-4-1-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-4-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-4-2-1.png", caption: " " }
+  ]}
+/>
+
+1. 首先新增一個平面，當作 logo animation 的背景，並加上材質
+2. 接著加入三盞燈光，分別是：藍色聚光燈、粉紫 色聚光燈、白色面光，調整它們的強度、半徑和相關數值，目前燈光如圖2。
+
+### step 3-2：調整攝影機位置、焦距、景深，作品完成！
+
+<ImageCarousel
+  label="CG_HW04 slideshow 6"
+  images={[
+    { src: "/images/homework/computer-animation/hw04/w4-5-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-5-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-5-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-11.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-12.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-13.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-14.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-15.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-16.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-17.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-18.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-19.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-20.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-21.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-22.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-23.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-24.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-25.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw04/w4-3-26.png", caption: " " }
+  ]}
+/>
+
+1. 這次的動畫我嘗試讓攝影機運動，首先讓攝影機在開頭和結尾都可以旋轉，所以在 rotation 加入 keyframe
+2. 在動畫中間我希望攝影機可以放大縮小，所以在加入 keyframe 在焦距中
+3. 在開頭與結尾想要有從模糊到清晰的感覺，所以 加入 keyframe 調整景深數值
+- 圖4-圖9：調整相機的 rotation
+- 圖10-圖15：調整相機的焦距
+- 圖16-圖19：調整相機的景深
+4. 最後都調整好之後，就可以開始渲染，完成 LOGO Sequence Animation！
+
+## 自我評量與作品建議
+
+**9/10**
+
+這次製作過程還算順利，沒有遇到什麼太大的問題，可能是因為大部分的 node 都使用上課做的內容，只有自己加入少許的節點來完成作品。
+作品其實一開始只有設定 10 秒，但後來覺得動畫動得太快，所以將所有 keyframe 都拉長兩倍（將時間軸放在第一個 keyframe 上，按 【S】【2】 就可以放大兩倍，非常方便 ），而 image sequence 也要變慢，我思考後就想到可以透過將輸入的 frame 數乘以 0.5，讓 frame=2 也可以跑第一張圖、 frame=4 也可以跑第二張圖，嘗試後發現真的是這樣，然後就順利幫動畫減速了。
+我覺得 geometry node 很讚，因為它的非破換性，讓我在後來想要修改前面的東西時，可以很方便的做更改。
+**過程中遇到的困難：**
+### step 1-1
+- 一開始不知道要怎麼把很多張的 image sequence 加進 Image texture 中 ，詢問 ai 後發現只要一次全選並匯入所有圖片即可。
+- 我想製作圖片順著播再倒著播的感覺，詢問 ai 後學到可以用 math 節點的 ping-pong 來完成，它會 限制 輸入的數值在 0 與指定 scale 之間來回循環。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw04/w4-6-1_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過上課製作的檔案與詢問 ai 來解決問題，以上（ 過程中遇到的困難 ）有寫到具體解決方式。
+另外也看幾個文件與教學影片
+- 關於 Geometry Proximity Node 的：[https://docs.blender.org/manual/en/4.0/modeling/geometry_nodes/geometry/sample/geometry_proximity.html#index-0](https://docs.blender.org/manual/en/4.0/modeling/geometry_nodes/geometry/sample/geometry_proximity.html#index-0)
+- 可用於 drive 的 Simple Expressions：[https://docs.blender.org/manual/en/4.0/animation/drivers/drivers_panel.html#simple-expressions](https://docs.blender.org/manual/en/4.0/animation/drivers/drivers_panel.html#simple-expressions)
+- 關於 ping-pong Node 的簡短解說：[https://www.youtube.com/watch?v=9y0HHYD7Lxo](https://www.youtube.com/watch?v=9y0HHYD7Lxo)

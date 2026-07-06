@@ -1,0 +1,101 @@
+<MarkdownMeta
+  hours={1}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/16ypdZvNKZHpo69mpZLij9TWm2TcqSy_p?usp=drive_link" }
+  ]}
+/>
+
+每週進度更新
+
+這週依報告時老師的建議，調整模型。
+
+## 作品技術概念
+
+用課程中學到的 Geometry Nodes 概念，針對「百年校慶倒數」的主題設計出一支約 30 秒之倒數計時機械鐘動畫，
+其中 「百年校慶倒數計時鐘」 需符合主題、具備故事性、辨識度與延展性，同時達到以下五項要求：
+1. 1-100 之倒數動畫呈現
+2. 時鐘必須展示其齒輪構造， 其中齒輪需要以鏈條帶動
+3. 必須能切換齒輪形式
+4. 有 5 種以上的機械運作原理
+- 鏈條傳動機構：用作時鐘齒輪與外部鐵門上齒輪傳動
+- 齒輪與齒輪傳動：用作時鐘內部齒輪傳動
+- 日內瓦機構：用作指針跳動
+- 凸輪連桿機構：用作雨傘裝飾上下移動
+- 往復滑塊機構：用作鐵門開
+5. 所有機械與原理，請整合在一具模型，彼此連動、符合主題
+此外，也為倒數計時鐘設計出多種的可調式參數，並整理在單一 UI 面板中提供使用者調整
+**作品理念**
+這件 作品是政大百年校慶 倒數計時機械式時鐘動畫，我 以鐘樓為出發點，製作包含政大特色的時鐘。
+- 雨傘造型代表政大很常下雨（用凸輪機構帶動雨傘上下移動）
+- 模型前方的鐵門緩慢打開，象徵歡迎校友回家（用往復滑塊機構帶動鐵門往左往右開啟 ）
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w16-final/2026-06-10-175147_1.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+### step 1-1：調整材質，讓材質跟著物體轉動
+
+<ImageCarousel
+  label="CG_Proj02_W16_Final slideshow 1"
+  images={[
+    { src: "/images/project/computer-animation/project02-w16-final/2026-06-11-124832.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/2026-06-11-124909.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/2026-06-11-124941.png", caption: " " }
+  ]}
+/>
+
+1. 因為內部齒輪的材質沒有跟著物體轉動而轉動，所以需要微調節點。在 gear switch node group 的輸出前加入 store named attribute，並將位置資訊加入 value 裡，這樣可以讀取物體位置。圖2 是 gear switch node group 完整 node
+2. 將 shading 中控制顏色拉伸 mapping 的 vector 接上 attribute，並將 name 輸入與 store named attribute 的 name 相同，這樣物體的轉動數值就可以讓 attribute 讀取，並讓材質轉動了
+3. 此外，我也修正了鏡頭運動（包含第二顆鏡頭完整拍攝從時鐘正面到背面、加長第五顆鏡頭 往復滑塊機構的畫面 ），所有模型修改就完成了，最後就重新渲染與輸出動畫
+
+### step 2-1：Rendering 展示
+
+<ImageCarousel
+  label="CG_Proj02_W16_Final slideshow 2"
+  images={[
+    { src: "/images/project/computer-animation/project02-w16-final/0001_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0178_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/image3_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0215_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0244_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0457_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0497_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0508_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/image_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/image1_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/image2_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0553_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0728_2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w16-final/0888_2.png", caption: " " }
+  ]}
+/>
+
+以上展示多張成果圖
+
+### step 2-2：Animation
+
+<YouTubeEmbed src="https://www.youtube.com/embed/h__-Phmv8QU" title="YouTube video 1" />
+
+### step2-3：Demonstration + Breakdown
+
+<YouTubeEmbed src="https://www.youtube.com/embed/fUkqfYFidDU" title="YouTube video 2" />
+
+### step2-4：報告時的錄影
+
+<YouTubeEmbed src="https://www.youtube.com/embed/DNYHJWzip5c" title="YouTube video 3" />
+
+**在這堂課的獲得和建議**
+
+**獲得：**
+我覺得這次製作專案有比期中時順利，因為期中遇到過的問題，像是 render 很慢、將所有物件整合在同一個模型，這次都有吸取之前的經驗，所以順利解決。另外我覺得透過這一學期的練習，用 goemetry node 製作模型的速度快了不少，這次模型大多是為了專案而新做的（少有從平時作業累積拿過來的），所以需要花一些時間製作，但我覺得這次的進度還算控制得好，且成果也很滿意。
+另外，這學期是我第一次接觸 geometry node，一開始覺得各種節點的功能都不同，所以感到很生疏，做模型的速度也很慢，但經過一學期的練習後，發現自己製作模型的速度快了不少，也對節點熟悉了起來，且變得很喜歡用節點。因為自己很喜歡控制精確的數值，所以我覺得使用節點非常方便，未來也會持續精進自己製作 3D 的能力。
+**建議：**
+我覺得可以多學一點材質的部分，因為將模型加入非純色的材質後，我感覺整體作品的質感提升了不少，所以想多學一點此部分的內容。

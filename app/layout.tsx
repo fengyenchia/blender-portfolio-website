@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Yen-Chia, Feng",
   description: "Blender Portfolio Website",
-  icons: {
-    icon: "/icon.png",
-  },
+  // icons: {
+  //   icon: "/favicon.ico",
+  // },
   keywords: ["Blender", "Geometry Nodes", "Portfolio", "3D", "Animation"],
   authors: [{ name: "Yen-Chia Feng" }],
   openGraph: {

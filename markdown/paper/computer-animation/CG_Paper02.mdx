@@ -1,0 +1,358 @@
+<MarkdownMeta
+  hours={0}
+  links={[
+    { label: "File Download", text: "File Download", href: "/files/paper/computer-animation/paper02/paper02_3d列印測試流程紀錄.pdf" }
+  ]}
+/>
+
+這篇是模型列印的測試階段紀錄，我們要去達賢創客空間透過 FDM 列印機，列印之前做的政大 LOGO 模型。但是在列印之前還有很多細節需要準備與調整，以下紀錄為準備過程遇到的問題與心得。
+一、模型準備過程
+在準備 Blender 模型檔案時，發現原來做的模型有許多破洞（缺少面）的問題，匯入切片軟體後也可以很明顯的看出來，所以需要先將模型修改一下。
+
+<ImageCarousel
+  label="CG_Paper02 slideshow 1"
+  images={[
+    { src: "/images/paper/computer-animation/paper02/2026-03-28-210101.png", caption: "將 face orientation 開啟，可以檢查法線方向。藍色是正常，紅色是面翻轉了。因為有缺少面，所以可以看得到模型內部的樣子（Normal 相反的部分）" },
+    { src: "/images/paper/computer-animation/paper02/2026-03-28-210216.png", caption: "這是模型破洞的問題" },
+    { src: "/images/paper/computer-animation/paper02/2026-03-28-210250.png", caption: "在切片軟體中看到（綠色、藍色、青色、粉色）這種紋理，代表模型有問題" }
+  ]}
+/>
+
+關於缺面問題
+
+1. 因為文字比較複雜，有轉折也有端點，如果單純將 curve to mesh 的 fill caps 勾選，轉折也會受影響。所以我就問 ai 來幫我解決缺面問題，透過在點上加入圓形填充就可以解決。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-210537_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+2. 將外圍花環中 curve to mesh 的 fill caps 勾選起來，可以封住端點。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-210930_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+3. 花瓣部分原本是以 mesh circle 再擠出高度來製作切除物，然後透過 mesh boolean 來排除不要的部分。現在改以用 cylinder 來取代原有的切除物，簡化此物體的製作，也解決了面消失的問題。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-210936_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-210952_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+我在檢查模型的過程中，會經常在一些節點後加入 merge by distance，確保沒有重疊的部分。另外要印出約 6x6cm 的模型，所以細節部分需要微調一下，我將文字、圓環、外圈花環的都調粗，並將花瓣調厚，這樣印出來或許比較不會都擠在一起。最後導出模型之前，要確保模型是單一物件且網格相連，可以使用一個快速的方法： 在 Sculpting（雕刻模式）下按下 Remesh 可以重構網格，此時模型會看起來被融合了，調整之後如下圖。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-212304_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+接著要輸出模型，原本將整個 blender 檔案輸出成 .stl 格式後，匯入切片軟體，會發現有不需要的平面出現（或許是某個模型的原始形狀）。解決方式是將要匯出的模型先選起來，在設定區域勾選 select only 就可以解決此問題了。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-213809_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-214403_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-214440_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+導入切片軟體後，可以透過預覽先看到模型列印的時間與過程，若有需要可以勾選新增支撐，避免印出時懸空的問題發生。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-214440_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-214455_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-214801_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/2026-03-28-220335_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+在調整模型的過程中，發現模型的擺放位置會大大影響到列印的速度，像是將模型立起來印會需要非常久的時間。同時要印的支撐越多也會影響時間，所以我在模型輸出前，先將 LOGO 各部分底部的位置都盡量對齊，來減少支撐的數量，之後拆卸過程也會比較容易。
+
+二、3D 列印機準備過程
+我們這次預約使用的是 FDM 雙料 3D 列印機，所以可以在模型列印過程，切換兩種不同顏色的線材，右邊放模型主體，左邊放支撐，我覺得這樣非常方便，因為拆卸時就不會搞混、誤拆到主體。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-1_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+列印的前置作業除了開好電源、調整機器參數外，最重要的就是要挑選線材，並將線材放入機器。不同顏色、材質的線材會影響最終的成品，我們最終選擇白色 PLA 線材，它是熱塑性材料，也是 3D 列印中常見材質。因為要保證每次列印的品質都能很好，所以線材平常都是在防潮櫃中存放，以免受潮。
+將線材塞入機器的過程中發現管道很小，所以要將它剪成斜口，才比較好放入。再來就是要測試擠出順不順利，先讓機器擠出一些線材，就可以判斷整體運作是否正常，之後也要將殘留線材去除，避免影響之後的成品。印製過程線材也要好好保存，所以要將它放入機器旁邊的防潮箱，透過控制溫度與定期散熱來預防受潮。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-2_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-3_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+最後將模型檔案放入創客中心的切片軟體後，調整好大小就可以列印了。導入時我們選擇了雙料、易拆的模式，並勾選支撐與退料塔（這是機器在印製過程中更換兩種耗材時，先在旁邊印一個圓形的塔，確保材料替換時擠出東西，不會直接印在模型上發生殘料殘留或是混料），就可以列印了。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-4_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+我覺得這些流程雖然複雜，但因為有創客中心的人員一步步帶著我們操作，所以這個階段沒有遇到什麼困難，非常順利。
+
+三、列印與卸下模型過程
+在列印過程中發現，噴頭會一層層有結構地擠出線材，同時每層圖形也不會重複，而是交錯的方式堆疊，這樣結構會比較穩固。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-5_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-7_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-6_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-8_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-9_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-9-5_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+最後要將線材全部取出，這個過程是「退料」，這樣整個列印流程都走完了！
+列印完成後發現了一個小問題：
+模型的文字上有不明的白色殘料，原本以為是瑕疵，詢問後發現它是支撐的一部分，所以可以直接去除。不過創客中心的人員告訴我們，這個模型很平整，不需要支撐也能列印成功。所以之後會改善這部分，取消勾選支撐。因為沒有支撐，且模型只需印單色，可以取消退料塔並將機器兩邊都放同一種線材（模擬單料列印，前提是單料 FDM 借不到），這樣會大幅縮短列印時間。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-15_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-16_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+這是列印出來的成果：
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-10_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-11_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-12_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-13_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-14_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+五、總結
+透過這次的列印測試，學到了很多 3D 列印需要注意的細節，也深知模型的複雜程度會大幅影響製作時間。在創客中心等待時看到其他人的模型，雖然表面不複雜，但內部或許有許多複雜卻不必要的結構，導致切片後推估的印製時間有半天之久。所以在製作模型與準備印製檔案的期間，就必須時時刻刻注意每個流程，避免在過程中留下冗餘構造，另外也可以透過切片軟體來判斷是否有必要印製支撐。
+透過學習到的經驗，需要再次修正我的模型。唯有這些細節都照顧到，才能提升列印效率與作品完整度。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/paper/computer-animation/paper02/paper2-17_orig.jpg"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>

@@ -1,0 +1,464 @@
+<MarkdownMeta
+  hours={9}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1BCdtDOpswFzVytq2dcTRTRbjQISBGRbT?usp=drive_link" }
+  ]}
+/>
+
+每週進度更新
+
+這週已經將模型做好，補上了鐘面、指針、旋轉的把手（用作動力來源）、雨傘支架，並將單一齒輪節點變成一個 node group，讓所有齒輪可以共用並調整參數。也加上燈光、場景與材質，並開始設計分鏡，也設定好了攝影機運動。
+下週進度是：加上物件的 keyframe、整合模型、找音樂、完成 render、製作 breakdown、寫出 概念說明
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/2026-06-01-000030_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+**齒輪**
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 1"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-06-01-000329.png", caption: "將齒輪前半段重複的部分做成 node group，並加上齒輪樣式切換的 menu switch" },
+    { src: "/images/project/computer-animation/project02-w14/2026-06-01-000351.png", caption: "將重複的部分換成此 node group" }
+  ]}
+/>
+
+**鐘面、指針**
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 2"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-06-01-000656.png", caption: "鐘面上放有時針、分針、秒針的小鐘面，並開一個孔讓天數的倒數數字露出" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183030.png", caption: "其中，hour node group 內部節點如圖（其他小鐘面製作方式類似）。\n以 curve circle 製作小鐘面\n" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-182917.png", caption: "用 curve circle 上的點做放置數字的位置" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-182938.png", caption: "以 string to curve 去製作數字" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183004.png", caption: "其他數字作法一致，但 index 要改（代表不同位置）" },
+    { src: "/images/project/computer-animation/project02-w14/2026-06-01-001237.png", caption: "再以 string to curve 去製作文字 hr，這樣鐘面就製作完成。分針、秒針、天針製作方式類似" },
+    { src: "/images/project/computer-animation/project02-w14/2026-06-01-001919.png", caption: "用 curve line 做指針，並將它放進 gear 裡，才可以同步與齒輪旋轉" }
+  ]}
+/>
+
+**旋轉的把手**
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 3"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-214416.png", caption: "用 cube 做把手，當作動力來源，再用 subdivision surface 細分表面，最後轉軸用 cylinder 製作" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-214731.png", caption: "將把手（handle）放進 gear 模型裡" }
+  ]}
+/>
+
+**材質**
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 4"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230411.png", caption: "首先 base color 用 mapping（拉身材質）+ noise texture（主要材質紋理）+ color ramp（調整顏色）" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230436.png", caption: "粗糙度用 noise texture + color ramp（調整分界）" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230456.png", caption: "normal 用 noise texture + color ramp（調整分界），再用 bump 調整凸出強度" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230518.png", caption: "所有材質節點" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-231730.png", caption: "發光材質將 emission 調高一點" },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-231753.png", caption: "因為有發光材質，要在 compositing 增加 glare" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：製作單一齒輪節點的 node group
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 5"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-180638.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-180728.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-181639.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-180807.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-181704.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-180850.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-180908.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-180931.png", caption: " " }
+  ]}
+/>
+
+1. 因為作業要求有提到，齒輪需要可以進行切換， 而我的模型中有許多齒輪，要幫每個齒輪各加一種樣式很麻煩，所以我改成先製作一個可切換齒輪樣式的 gear node group，其中圖1 是每個齒輪會重複用到的節點，所以也將它們加進 node group 裡，方便重複利用
+2. 再來是加上更多樣式，我用 menu switch 做樣式切換，第一個是 normal，我讓它保持原本製作好的齒輪的樣子，接下來是其他樣式
+- type A：type A 我將齒輪上打 4 個洞，透過 curve circle 做出基本形狀，再用 repeat node 邊旋轉 90 度邊複製 4 個，最後和原本的齒輪形狀用 join geometry 合併再用 fill curve 填滿，就完成了（如圖3）
+- type B：type B 我將齒輪上放 6 個半圓，透過 arc 做出基本形狀，再用 repeat node 邊旋轉 60 度邊複製 6 個，最後和原本的齒輪形狀用 join geometry 合併再用 fill curve 填滿，就完成了 （如圖5 ）
+3. 最後將所有 node 群組，命名為 gear switch，可調式參數控制區如圖7
+4. 圖8 是實際將原本齒輪模型中的重複節點，改成 gear switch node group 的樣子，其中有可調式參數 gear switch，可以切換齒輪樣式
+
+### step 1-2：製作鐘面、指針
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 6"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-182523.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-182834.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-182917.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-182938.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183004.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183030.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183116.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183234.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-183952.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-190225.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-190259.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-190324.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-190938.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-190425.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-190446.png", caption: " " }
+  ]}
+/>
+
+1. 鐘面我用 grid 製作，並用 extrudeNew 擠出厚度。因為鐘面上方放的是年份倒數（只會露出一個孔顯示幾年），所以上方我再用 grid 開一個洞，用 mesh boolean 減去
+2. 再來是製作秒分時天的小鐘面，圖2 是合併的結果，之後會有詳細製作步驟
+3. 圖3 是 hour node group
+- 因為我要在圓周上平均分布 4 個點（指向 3、6、9、12 小時），所以先用 curve circle，resolution 設為 4，再將輸出接到 instance on points
+- instance on points 的 instance 要放數字，首先製作數字 12。我用 string to curve 做數字，再將 index、equal 接到 instance on points 的 selection，代表 index = 0 的 instance 是 12（實際 index 等於多少，可以在製作時看鐘面上數字出現在哪個點，再調整）
+- 其他數字製作過程一致，只差在 index 不同
+- 做好所有數字後，就將它們用 join geometry 合併，再用 fill curve 填滿，並用 extrudeNew 擠出厚度
+- 最後做一個小鐘面，用 curve circle 製作，而中間我想加一個圓形的物件，當作指針的旋轉中心，所以就加上一個 UV sphere，就完成了
+4. minute node group 的製作流程和 hour node group 一致，差在要放的數字與數量不同，這裡就不多描述
+5. 圖7 是 second node group 的鐘面製作流程，因為數字製作流程一致，所以不多描述。而秒針的鐘面我做成中空的，所以就多加一個小的 curve circle 來挖洞
+6. day node group 的製作流程和 second node group 一致，所以也不多描述
+7. 圖8、圖9 是最終完成圖
+8. 因為指針旋轉速度和齒輪相同（同軸），所以指針 node 我放在 gear 物件裡
+- 圖10 是分針指針，我用 curve line 製作，加上 curve to mesh 後，以 quadrilateral 接上 profile curve，做一個長方形指針，最後接到和齒輪一樣的旋轉 node 中
+- 圖11 是秒針指針、圖12 是時針指針，作法皆一致
+- 而最後的天針不用放指針，不過需要做一個連接齒輪與鐘面的線段，所以圖13 我用 curve line 拼出直角線段
+9. 圖14、圖15 是最終成果
+
+### step 1-3：製作旋轉的把手
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 7"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-214416.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-214500.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-214731.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-214859.png", caption: " " }
+  ]}
+/>
+
+1. 旋轉的把手會當作外部輸入的動力來源，我用 cube 做出基本把手形狀，透過 subdivision surface 做細分，讓整體變圓一點；用 cylinder 做出轉軸，之後和內部齒輪相連，做好後就群組成 handle
+2. 回到 gear 模型內，我將 handle 放在所有節點最後，因為它也要旋轉，所以另外加上 scene time、combine XYZ（連到 Y）最後連進 transform geometry 的 rotation 裡
+3. 圖4 是最終成果
+
+### step 1-4：將雨傘補上支架
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 8"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-220103.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-220202.png", caption: " " }
+  ]}
+/>
+
+和老師討論後，建議加上雨傘內部支架，讓模型更完整，所以我在傘面的節點旁新增支架節點，並用 join geometry 合併，這樣它們就可以同步上下移動。
+1. 我用 curve line 製作支架主體，透過在 curve mesh 的 profile curve 加上 curve circle，讓支架變粗，再來透過 repeat node 複製 8 個，對應 8 片傘面；中央再加上一個 cylinder 做為 打開 雨傘的那個物件
+2. 做好後如圖2
+
+### step 1-5：製作場景（背景、草地、文字、燈光）
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 9"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-221231.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-221303.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-221350.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-222017.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-222133.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-222153.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-222214.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-222248.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-223438.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-223606.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224208.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224305.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224626.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224651.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224811.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224934.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-224959.png", caption: " " }
+  ]}
+/>
+
+**文字**
+1. 我用和時鐘上文字一樣的做法，透過 string to curves 新增文字「百年政大」、「沐光前行」（學校[百年倒數網頁](https://100.nccu.edu.tw/)裡寫的 solgan），再用 fill curve 填充，用 extrudeNew 擠出厚度
+2. 群組成 node group，命名為 word，圖3 是完成圖
+**草地**
+1. 我先用手動建模的方式製作一根草，如圖4
+2. 再來是製作草地，我用期中前教的粒子效果相關節點去修改。先建立一個平面當作草地，接上 distribute points on faces 讓平面上隨機分布點，再來接 instance on points，將製作好的草放進 instance 接口，之後的 rotation 和 scale 主要是以 scene time 搭配 random value 讓草粒子可以隨機縮放大小與 隨時間隨機 旋轉
+3. 這樣草地就有了，但同時也要底下的土地，所以我將最初的平面和草地用 join geometry 結合，就完成完整的草地了， 圖8 是完成圖
+**碗形背景**
+期中聽完老師建議後，得知要讓背景分界線不明顯，可以將背景做成碗形的，我也上網找了[參考影片](https://www.youtube.com/watch?v=5UCc3Z_-ibs)
+1. 背景是先建立一個平面，然後用手動建模的方式做出碗形，其中弧度可以用倒角修改器去完成
+**燈光**
+燈光我架設了 7 盞，分別是
+1. 照亮整個模型的頂部 區域光 （圖11）
+2. 日 光（圖12）
+3. 左邊藍色聚光燈（圖13）
+4. 右邊粉色聚光燈 （圖14）
+5. 從後面照射凸顯輪廓的區域光 （圖15）
+6. 照亮內部齒輪的點光 （圖16）
+7. 照亮外部齒輪的點光 （圖17）
+
+### step 2-1：製作材質
+
+<ImageCarousel
+  label="CG_Proj02_W14 slideshow 10"
+  images={[
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-232424.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-232811.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230411.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230436.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230456.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-230518.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-231602.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-231730.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-231753.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/2026-05-31-232105.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w14/bg.png", caption: " " }
+  ]}
+/>
+
+這次材質以金屬為主，其中我在金屬上都加了一些細節，進入 shading 面板調材質
+1. 第一種是生鏽材質，我將 [HW14](hw14.html) 做好的拿來用，這裡就不詳述
+- 不過我將模型的生鏽部分加在鐘樓腳的下部分，而不是整體，圖1 是鐘樓腳的材質節點
+- 我用 position + separate XYZ 只讓 z 方向決定生鏽程度；再接 map range 呈上調整生鏽程度的 rust change，其中高度 6 到 0.5 對應 0 到 1，代表上到下是不生鏽到生鏽
+- 圖2 是完成圖
+2. 再來是多種顏色的金屬材質加細節，我參考網路上的[教學影片](https://www.youtube.com/watch?v=bCgPjfSSN50)來製作，但和上課的流程其實類似
+- 用 texture coordinate 開始，讓紋理可以根據模型在 3D 空間中的真實尺寸來均勻投影
+- 顏色先用 mapping + noise texture 製造出紋理，其中 scale 的 z 方向調大，可以讓紋理有拉長效果，更像金屬刮痕；用 color ramp 調整兩色與它們的分界
+- 金屬度維持 1
+- 粗糙度一樣用 color ramp 調整成適合分界
+- normal 用 color ramp 調整後，需要用 bump 去微調高度，將 strength 設為 0.01，讓表面微微凸出就好
+- 圖6 是完整材質 node
+3. 其他顏色的製作方式一致，只有 base color 前的 color ramp 中，顏色要調整成想設定的金屬顏色，像是金色設定如圖7
+4. 發光材質我另外設置，如圖8，我將 emission 調成 0.5，同時要到 compositing 面板，加上一個 glare 才能看到發光效果（若沒有發光要檢查 viewport shading 中，compositor 要開成 always）
+5. 圖11是完整加完材質的模型
+
+### step3-1：設計分鏡
+
+**共 37 秒（frame = 888）； 6 顆鏡頭 背景音樂：**
+[https://www.youtube.com/watch?v=pQ5Cw8NY96M](https://www.youtube.com/watch?v=pQ5Cw8NY96M)
+
+[鏡頭一] frame = 0~95
+鏡頭：dolly out、tilt up
+畫面說明：從特寫秒針到拍到整個時鐘表面
+聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot1-1.png"
+    alt="[鏡頭一] frame = 0~95 鏡頭：dolly out、tilt up 畫面說明：從特寫秒針到拍到整個時鐘表面 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭一] frame = 0~95 鏡頭：dolly out、tilt up 畫面說明：從特寫秒針到拍到整個時鐘表面 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot1-2.png"
+    alt="[鏡頭一] frame = 0~95 鏡頭：dolly out、tilt up 畫面說明：從特寫秒針到拍到整個時鐘表面 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭一] frame = 0~95 鏡頭：dolly out、tilt up 畫面說明：從特寫秒針到拍到整個時鐘表面 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)</p>
+</div>
+
+[鏡頭二] frame = 96~215
+鏡頭：arc shot、dolly in
+畫面說明：繞著時鐘側面進行圓弧軌道運鏡，同時向前推進
+聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、[齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot2-1.png"
+    alt="[鏡頭二] frame = 96~215 鏡頭：arc shot、dolly in 畫面說明：繞著時鐘側面進行圓弧軌道運鏡，同時向前推進 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、[齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭二] frame = 96~215 鏡頭：arc shot、dolly in 畫面說明：繞著時鐘側面進行圓弧軌道運鏡，同時向前推進 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、[齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot2-2.png"
+    alt="[鏡頭二] frame = 96~215 鏡頭：arc shot、dolly in 畫面說明：繞著時鐘側面進行圓弧軌道運鏡，同時向前推進 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、[齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭二] frame = 96~215 鏡頭：arc shot、dolly in 畫面說明：繞著時鐘側面進行圓弧軌道運鏡，同時向前推進 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、[齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)</p>
+</div>
+
+[鏡頭三] frame = 216~457
+鏡頭：dolly out、dolly in、pedestal up、pedestal down
+畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動
+聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot3-1.png"
+    alt="[鏡頭三] frame = 216~457 鏡頭：dolly out、dolly in、pedestal up、pedestal down 畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動 聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭三] frame = 216~457 鏡頭：dolly out、dolly in、pedestal up、pedestal down 畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動 聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot3-2.png"
+    alt="[鏡頭三] frame = 216~457 鏡頭：dolly out、dolly in、pedestal up、pedestal down 畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動 聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭三] frame = 216~457 鏡頭：dolly out、dolly in、pedestal up、pedestal down 畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動 聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot3-3.png"
+    alt="[鏡頭三] frame = 216~457 鏡頭：dolly out、dolly in、pedestal up、pedestal down 畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動 聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭三] frame = 216~457 鏡頭：dolly out、dolly in、pedestal up、pedestal down 畫面說明：拍攝時鐘內部齒輪機構，包含日內瓦機構、凸輪機構、齒輪與齒輪傳動 聲音說明： [齒輪運轉聲](https://freesound.org/people/sidequesting/sounds/524027/)</p>
+</div>
+
+[鏡頭四] frame = 458~553
+鏡頭：pedestal down、dolly out
+畫面說明：鏡頭從傘頂出發，往下、往後照到整個模型
+聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、齒輪運轉聲
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot4-1.png"
+    alt="[鏡頭四] frame = 458~553 鏡頭：pedestal down、dolly out 畫面說明：鏡頭從傘頂出發，往下、往後照到整個模型 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、齒輪運轉聲"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭四] frame = 458~553 鏡頭：pedestal down、dolly out 畫面說明：鏡頭從傘頂出發，往下、往後照到整個模型 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、齒輪運轉聲</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot4-2.png"
+    alt="[鏡頭四] frame = 458~553 鏡頭：pedestal down、dolly out 畫面說明：鏡頭從傘頂出發，往下、往後照到整個模型 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、齒輪運轉聲"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭四] frame = 458~553 鏡頭：pedestal down、dolly out 畫面說明：鏡頭從傘頂出發，往下、往後照到整個模型 聲音說明：[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、齒輪運轉聲</p>
+</div>
+
+[鏡頭五] frame = 554~757
+鏡頭：dolly in、arc shot、pan right、pedestal up
+畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束
+聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot5-1.png"
+    alt="[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot5-2.png"
+    alt="[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot5-3.png"
+    alt="[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot5-4.png"
+    alt="[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭五] frame = 554~757 鏡頭：dolly in、arc shot、pan right、pedestal up 畫面說明：從鏡頭四同樣位置往前，再逆時針微微轉動，照到校門上的往復滑塊機構；慢慢往右上照到鐘面，拍攝鐘面特寫，緩慢往前，直到倒數結束 聲音說明：[校門開啟聲](https://freesound.org/people/gchase/sounds/144046/)、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)</p>
+</div>
+
+[鏡頭六] frame = 758~888
+鏡頭：dolly out、pedestal down
+畫面說明：鏡頭往後並微微旋轉，直到照到整個模型，以仰角、廣角拍攝來結束，此時「百年政大，沐光前行」的字會跑出來
+聲音說明： [校門開啟聲](https://freesound.org/people/gchase/sounds/144046/) 、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、 [鐘響聲](https://freesound.org/people/deleted_user_7020630/sounds/378394/)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot6-1.png"
+    alt="[鏡頭六] frame = 758~888 鏡頭：dolly out、pedestal down 畫面說明：鏡頭往後並微微旋轉，直到照到整個模型，以仰角、廣角拍攝來結束，此時「百年政大，沐光前行」的字會跑出來 聲音說明： [校門開啟聲](https://freesound.org/people/gchase/sounds/144046/) 、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、 [鐘響聲](https://freesound.org/people/deleted_user_7020630/sounds/378394/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭六] frame = 758~888 鏡頭：dolly out、pedestal down 畫面說明：鏡頭往後並微微旋轉，直到照到整個模型，以仰角、廣角拍攝來結束，此時「百年政大，沐光前行」的字會跑出來 聲音說明： [校門開啟聲](https://freesound.org/people/gchase/sounds/144046/) 、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、 [鐘響聲](https://freesound.org/people/deleted_user_7020630/sounds/378394/)</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w14/shot6-2.png"
+    alt="[鏡頭六] frame = 758~888 鏡頭：dolly out、pedestal down 畫面說明：鏡頭往後並微微旋轉，直到照到整個模型，以仰角、廣角拍攝來結束，此時「百年政大，沐光前行」的字會跑出來 聲音說明： [校門開啟聲](https://freesound.org/people/gchase/sounds/144046/) 、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、 [鐘響聲](https://freesound.org/people/deleted_user_7020630/sounds/378394/)"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">[鏡頭六] frame = 758~888 鏡頭：dolly out、pedestal down 畫面說明：鏡頭往後並微微旋轉，直到照到整個模型，以仰角、廣角拍攝來結束，此時「百年政大，沐光前行」的字會跑出來 聲音說明： [校門開啟聲](https://freesound.org/people/gchase/sounds/144046/) 、[時鐘滴答聲](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)、 [鐘響聲](https://freesound.org/people/deleted_user_7020630/sounds/378394/)</p>
+</div>
+
+## 自我評量與作品建議
+
+**9 /10**
+
+這週最滿意的部分是，一開始發現模型面數太多（上週有30萬面），經過不斷優化節點，將齒輪的 fill curve 從 triangles 改成 N-gons、將 resolution 降低，最後製作完所有模型後，面數只有 6 萬多面，模型變的比較乾淨，動畫也比較不卡。
+
+## 解決問題之能力與參考資源
+
+**在時鐘上擺放數字**
+[https://www.youtube.com/watch?v=RH09qxreUCg](https://www.youtube.com/watch?v=RH09qxreUCg)**灰色金屬材質（加上細節）**
+[https://www.youtube.com/watch?v=bCgPjfSSN50](https://www.youtube.com/watch?v=bCgPjfSSN50)
+**更多程序化材質的教學影片**
+[https://www.youtube.com/playlist?list=PLsGl9GczcgBs6TtApKKK-L_0Nm6fovNPk](https://www.youtube.com/playlist?list=PLsGl9GczcgBs6TtApKKK-L_0Nm6fovNPk)
+**碗型場景製作方式**
+[https://www.youtube.com/watch?v=5UCc3Z_-ibs](https://www.youtube.com/watch?v=5UCc3Z_-ibs)

@@ -15,9 +15,27 @@ export default async function CoursePage({ params }: { params: Promise<{ categor
       <ul className="space-y-3">
         {list.map((item) => (
           <li key={item.slug}>
-            <Link href={`/${category}/${course}/${item.slug}`}>
-              {item.name}
-            </Link>
+            {item.children?.length ? (
+              <div className="border border-neutral-200 bg-white p-5">
+                <h2 className="mb-4 text-lg font-semibold">{item.name}</h2>
+                <ul className="space-y-2">
+                  {item.children.map((child) => (
+                    <li key={child.slug}>
+                      <Link
+                        href={`/${category}/${course}/${item.slug}/${child.slug}`}
+                        className="block border border-neutral-200 px-4 py-3 transition hover:border-neutral-900"
+                      >
+                        {child.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <Link href={`/${category}/${course}/${item.slug}`}>
+                {item.name}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

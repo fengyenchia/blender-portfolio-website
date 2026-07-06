@@ -1,0 +1,315 @@
+<MarkdownMeta
+  hours={16}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/13Jt2n7cN4H20XqOcBD2u9B046jB4xpdS?usp=drive_link" }
+  ]}
+/>
+
+每週進度更新
+
+project 02 想做一個鐘樓造型的機械式時鐘，鐘樓頂端是雨傘，代表政大的特色「下雨」，鐘樓前方有校門，它會從關閉狀態慢慢向兩側開啟，直到倒數計時完成，大開打門也代表歡迎校友回家。
+這週將模型大致完成，會用到的 機械運作原理有：
+1. 鏈條傳動機構
+2. 齒輪與齒輪傳動
+3. 日內瓦機構
+4. 凸輪連桿機構
+5. 往復滑塊機構
+詳細示意圖可以看 [project02_w11](project02_w11.html) 頁面。
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w13/2026-05-25-142504_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+**齒輪組**
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 1"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133017.png", caption: "分針" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133058.png", caption: "帶動大門與分針的齒輪、凸輪" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133123.png", caption: "日內瓦結構相關齒輪" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133658.png", caption: "日內瓦結構 - 主動輪 node" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133726.png", caption: "日內瓦結構 - 日內瓦輪 node" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133146.png", caption: "秒針、時針齒輪" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133205.png", caption: "天針齒輪" }
+  ]}
+/>
+
+**鎖鏈**
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 2"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-133953.png", caption: "三個鎖鏈用 join geometry 合在一起" }
+  ]}
+/>
+
+**校門**
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 3"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134147.png", caption: "校門主體" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134226.png", caption: "往復滑塊機構 - 齒輪" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134246.png", caption: "往復滑塊機構 - 連桿" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134316.png", caption: "往復滑塊機構 - 螺栓" }
+  ]}
+/>
+
+**鐘樓**
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 4"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134556.png", caption: "底部四個柱子" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134627.png", caption: "中間平面" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134648.png", caption: "上面有挖空的立方體" }
+  ]}
+/>
+
+**雨傘裝飾**
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 5"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-134929.png", caption: "製作單一傘面" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-135026.png", caption: "用 reepeat node 複製成完整傘面" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-135045.png", caption: "設置上下移動的軌跡" },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-135103.png", caption: "製作傘柄與上下移動軌跡" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：製作日內瓦輪機構
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 6"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021013.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021045.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021109.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021121.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021148.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021222.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-021232.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022709.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022535.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022547.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022556.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022612.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022625.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022626.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-022724.png", caption: " " }
+  ]}
+/>
+
+上週只做完時分秒的齒輪，不過秒針我希望可以間歇性跳動，而不是等速旋轉，所以我加了日內瓦機構在內。同時，我設定整組齒輪的動力來源是天針（轉速最慢得當動力來源），所以將鍊條放在此上。
+1. 首先製作有凹槽的日內瓦輪
+- 基本造型和齒輪結構相似，所以也是用 star 來做，並擠出厚度
+- 再來是減去中心圓柱，我用 cylinder 做出圓柱，並用 mesh boolean 減去
+- 除了圓柱，還要再減去**鎖定圓弧**和**軸向凹槽**，我先用 curve circle 製作圓形，但因為要有 6 個相同形狀不同位置的圓弧，所以用 repeat node 來複製；軸向凹槽製作方式相同，只是形狀換成柱體
+- 最後微調一下物體位置旋轉和大小就完成了，再將所有 node 群組成 Driven Wheel 的 node group，如圖6
+- 圖7 是可調式參數控制區的內容，圖8 是目前 日內瓦輪 的樣子
+2. 再來製作圓形的主動輪，它是動力來源，會帶動 日內瓦輪（ 從動輪）旋轉。 主動輪有分上下兩層，上層有 一個圓銷，它會轉進日內瓦輪的凹槽讓它轉動，轉了 60 度後又會離開日內瓦輪，使它停止轉動， 上層 還有一個鎖定凸輪，它會和日內瓦輪的圓弧咬合。
+- 先製作上層，用 curve circle 製作圓盤，並用另一個 curve circle 減去一部分，變成月亮形狀的鎖定凸輪
+- 圓銷也是用 curve circle 來製作，最後把這兩個部分用 join geometry 加在一起
+下層是一個大圓，旁邊有一個小圓，上面放 圓銷
+- 先用 curve circle 製作大圓和小圓，並用 transform geometry 微調位置
+- 厚度的部分因為整體要和日內瓦輪一樣後，所以下層厚度是整體的 o.5 倍
+- 製作好後也放入 join geometry，接著就可以前往下一部份，目前在圖6
+- 一樣要減去中心圓柱，所以用 cylinder 製作柱體，並用 mesh boolean 減去它
+- 最後微調一下位置旋轉和大小， 再將所有 node 群組成 Driving Wheel 的 node group，如圖13
+- 圖14 是可調式參數控制區的內容，圖15 是目前 主動輪 的樣子
+
+### step 1-2： 完善時鐘的齒輪結構
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 7"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025622.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025641.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025700.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025713.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025724.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-031210.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-031223.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-031232.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-031243.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-031253.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025756.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-025816.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032129.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032415.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032506.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032553.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032602.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032612.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032621.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032634.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-032827.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033049.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033101.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033243.png", caption: " " }
+  ]}
+/>
+
+1. 把製作好的日內瓦機構放入時鐘齒輪組中，我先放入主動輪。
+- 將剛剛的 driving wheel node group 加入，並調整位置
+- 因為這個日內往輪機構是要帶動秒針的，所以要加入一些齒輪來傳動。這裡加入同軸 6 齒齒輪
+- 接著用 cylinder 減去中心轉軸 ，並加入材質
+- 最後是調整轉速，如圖2
+2. 再來是製作 日內瓦輪，它比較特別，是間歇性運動（一次轉 60 度），所以之後需要注意有被它連動的齒輪，轉動模式也要和它一致
+- 將剛剛的 driven wheel node group 加入，並調整位置
+- 加入同軸 6 齒齒輪來連動其他齒輪
+- 減去中心圓柱，並加入材質
+- 再來是轉速設定，前三個節點和之前齒輪的一致，而後面開始做間歇式轉動。我問了 ai 如何做到，詳細內容在圖6~10 。簡單來說就是用 floor 來取整數，這是每次轉動的步數；fraction 會輸出 0~1，再透過 map range 將數值重新映射，from min 設為 0.7 代表前 70% 的數值都是 0，而 70%~100% 的數值會從 0 映射到 1；後面 multiply 乘以 1.0472 是輸入 2*pi/6 所得到的，代表旋轉 60 度
+- 然後此 日內瓦輪前方也附上一個齒輪，是用來帶動秒針齒輪的，如圖11、12
+- 最終成果如圖13
+3. 這週我有再重新計算齒輪組的齒數，或是其它連動關係，所以有稍微調整了一些節點
+- 目前 所有齒輪節點如圖14~20
+- 正視圖、後視圖、側視圖、透視圖如圖21~24
+
+### step 2-1：製作校門
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 8"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033449.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033544.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033603.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033629.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033639.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033726.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033737.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033753.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033805.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033820.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033829.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033854.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033905.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-033915.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-034316.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-034330.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-034341.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-095110.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-095257.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-095316.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-095505.png", caption: " " }
+  ]}
+/>
+
+1. 首先是校門的外框，我用四邊形 quadriateral 做，並搭配 fillet curve 可以做倒角，再加入 curve circle 增加粗度，最後微調位置（讓它底部在 z=0）
+2. 再來是校門內部的線條，我 是 用 mesh line 擺橫的，上面設定一些點（這部分是可調式參數），平均等分這條線；再用 instance on points 的方式，將 cylinder 加上去；為了讓我調整 count 時，門上的線條都可以和門的寬度均分，所以需要透過很多 math node 去計算（整體 line 的偏移量 + count*line 之間的間距 = 門寬度）
+3. 最後把兩部分用 join geometry 加起來，而因為門是兩邊對稱的，所以我另一邊用原有的 node 加入一個 transform geometry 並設定 scale X = -1，就可以鏡射過去了
+4. 校門移動的方式是透過往復滑塊機構，讓它往左右移動，所以接下來就是製作此結構。此結構分成齒輪、連桿和螺栓，如圖8
+- 齒輪的製作方式和前面一致，所以就不再描述，不過可以看到兩側齒輪有分前後各兩個，後面齒輪被 時鐘齒輪的動力來源連動，接著因為同軸讓前面齒輪也可以跟著動
+- 連桿我用 curve line 製作，其中連著齒輪的那點是作圓周運動，連著校門的另一點是做直線來回運動。圓周運動公式是 x=r*cos(angle), y =r*sin(angle)，所以我就著個這個結構去設定 math 節點，直線運動的那點會固定 y、z 方向，只需透過調整 x 方向來完成
+- 最後微調位置並加上材質就完成了，左右做法類似但方向相反
+- 螺栓我用 cylinder 製作，就把它擺在校門與連桿間、連桿與齒輪間就完成了，不過要記得它的運動方式和上面連桿的兩點相似，所以也是需要設定
+5. 圖16、17 是完成後的圖片，圖18 是可調式參數控制區
+6. 最後要記得在時鐘齒輪組中補上相互連動的齒輪，整體做完如圖21，箭頭方向為主動力到最後連動齒輪方向
+
+### step 2-2：加上鎖鏈
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 9"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-111727.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-111939.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112013.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112036.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112037.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112103.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112124.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112150.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112212.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-112237.png", caption: " " }
+  ]}
+/>
+
+1. 我先將鐵鍊加在時鐘齒輪的動力源上，以 curve circle 製作圓形路徑，並加入之前做好的 circle chain links，就完成了，成果如圖2、3，可調式參數如圖4
+2. 再來是動力源帶動大門打開的腳踏車鍊條，我用手動建模的方式製作一個橢圓形路徑，再將此路徑加入 bicycle chain links。同時因為這裡分左鏈右 鏈，所以我就用 scale X = -1 的方式鏡射過去，不過鏡射的同時旋轉方向會相反，所以將 rotate speed 乘上 -1，就可以旋轉方向了
+3. 整體 node 如圖7，最終成果圖如圖8、9， 可調式參數如圖10
+
+### step 3-1：製作鐘樓
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 10"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-113345.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-113415.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-113432.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-113740.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-113817.png", caption: " " }
+  ]}
+/>
+
+1. 首先製作鐘樓最底部的柱子，我先用 grid 並設定 verticle = 2 來放置 4 個點，並稍微調整一下位置，使鐘樓往正 y 方向移動一點，和時鐘齒輪中心對齊
+2. 接著用 instance on points，將 grid 上四個點放置方形柱體，instance 的部分我用 cube 製作，並將 z 方向拉長
+3. 再來是中間方型平面，我用 cube 製作扁的平面，再用 transform geometry 調整位置
+4. 最後做上面放置時鐘的立方體，主體用 cube 做，再用 mesh boolean 減去一個小一點的 cube，做出前方挖空感覺
+5. 三部分做好後，就用 join geometry 加起來，最終成果如圖5
+
+### step 3-2：製作鐘樓上雨傘裝飾
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 11"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115201.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115338.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115405.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115449.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115601.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115622.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115640.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115704.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115723.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-115742.png", caption: " " }
+  ]}
+/>
+
+1. 首先建立一個 grid 來當作傘面的基本形狀，並用 merge by distance 將上面兩點合併，製作出三角形
+2. 因為傘面的底邊會比中心更往外，所以須將底邊偏移出去，並設定可調式參數，之後做雨傘開合動畫會用到
+3. 再來是複製三角形傘面，我要做八等分所以旋轉值設定成 360/8=45 度
+4. 因為雨傘開合我預計用凸輪控制傘柄間歇性上下移動，所以傘面同時也會上下移動。先用 scene time 搭配 multiply，乘上基本速度，目前會是等速移動；接著接上 fraction，它會取出小數部分，也就是將時間轉換成 0~1 的循環值，當它從 0 走到 1，代表**一次完整的升降週期**；接著是用 float curve 控制 o~1 的高度，可以看成一個週期的運動軌跡，最後用 map range 調整最終高度，to max 可以設定最高點在哪裡；最後用 combine XYZ 偏移 z 方向高度
+5. 傘面上下運動就完成了，之後做**動畫只要調整雨傘開合**就好，如圖4
+6. 傘柄因為考量到之後要做的凸輪位置，所以它不是一條直線，而是用三節 curve line 拼成 ㄣ 字形，再用 curve to mesh 與 curve circle 製作粗度；後面是控制傘柄間歇性上下移動，製作方式和傘面相同
+7. 最後用 join geometry 將傘面傘柄加在一起
+8. 可調式參數控制區如圖7，成果如圖8~10
+
+### step 3-3：製作控制雨傘移動的凸輪
+
+<ImageCarousel
+  label="CG_Proj02_W13 slideshow 12"
+  images={[
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-122401.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-122432.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-122459.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w13/2026-05-25-122555.png", caption: " " }
+  ]}
+/>
+
+1. 凸輪製作方式很簡單，就是用一個 curve circle，並將圓心向上偏移圓的中心就好，最後擠出厚度
+2. 因為它和控制校門的齒輪同軸，所以旋轉的 node 就一起共用
+3. 最終成果如圖3、4
+4. 這週進度就至此，下.週會繼續製作指針與開始思考分鏡、動畫
+
+## 自我評量與作品建議
+
+**8 /10**
+
+這週做了很多建模的部分，我預想先把模型做完，再想 分鏡和整體 動畫，會比較有想法。 裝飾性物件我是以 政大特色去思考，並想著如何搭配機械結構，最終想到可以做雨傘開合結合凸輪機構，同時也符合政大特色「下雨」。
+齒輪部分我覺得個齒輪的位置安排最難，要避免擋到其他齒輪同時扣合相鄰齒輪來連動。第二難是要讓不同齒數的齒輪每一齒的大小相同，因為這樣才能正常計算傳動比並正常轉動，不過為了美觀和與讓齒輪間相互扣合，我有調整了一些齒輪的齒的大小，這樣有稍微不符合實際情況。
+
+## 解決問題之能力與參考資源
+
+[**日內瓦結構參考文章**](https://www.facebook.com/photo/?fbid=1322441441136795&set=%E6%83%B3%E8%87%AA%E5%B7%B1%E5%81%9A%E4%B8%80%E5%80%8B%E6%97%A5%E5%85%A7%E7%93%A6%E6%A9%9F%E6%A7%8B%E5%8D%BB%E4%B8%8D%E7%9F%A5%E9%81%93%E6%80%8E%E9%BA%BC%E7%95%AB%E5%87%BA%E9%80%99%E5%80%8B%E5%BD%A2%E7%8B%80%E5%A5%87%E5%A6%99%E7%9A%84%E8%BC%AA%E5%AD%90%E5%97%8E%E5%85%B6%E5%AF%A6%E6%97%A5%E5%85%A7%E7%93%A6%E8%BC%AA%E6%98%AF%E6%9C%89%E5%B9%BE%E4%BD%95%E9%97%9C%E4%BF%82%E7%9A%84%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E6%98%AF%E5%85%A9%E5%80%8B%E8%BC%AA%E5%AD%90%E7%9A%84%E4%B8%AD%E5%BF%83%E9%BB%9E%E5%92%8C%E5%9C%93%E9%8A%B7%E9%80%B2%E5%85%A5%E5%87%B9%E6%A7%BD%E7%9E%AC%E9%96%93%E7%9A%84%E9%82%A3%E4%B8%80%E9%BB%9E%E9%80%99%E4%B8%89%E9%BB%9E%E5%BF%85%E9%A0%88%E5%BD%A2%E6%88%90%E4%B8%80%E5%80%8B%E7%9B%B4%E8%A7%92%E4%B8%89)

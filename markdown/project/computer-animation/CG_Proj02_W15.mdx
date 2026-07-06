@@ -1,0 +1,160 @@
+<MarkdownMeta
+  hours={2}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1cPHK6ek_WE6GGlVgPuxHX2VJh4vwz21q?usp=drive_link" }
+  ]}
+/>
+
+每週進度更新
+
+這週為加上物件的 keyframe、整合模型、找音樂、完成 render、製作 breakdown
+
+## 作品技術概念
+
+用課程中學到的 Geometry Nodes 概念，針對「百年校慶倒數」的主題設計出一支約 30 秒之倒數計時機械鐘動畫，
+其中 「百年校慶倒數計時鐘」 需符合主題、具備故事性、辨識度與延展性，同時達到以下五項要求：
+1. 1-100 之倒數動畫呈現
+2. 時鐘必須展示其齒輪構造， 其中齒輪需要以鏈條帶動
+3. 必須能切換齒輪形式
+4. 有 5 種以上的機械運作原理
+- 鏈條傳動機構：用作時鐘齒輪與外部鐵門上齒輪傳動
+- 齒輪與齒輪傳動：用作時鐘內部齒輪傳動
+- 日內瓦機構：用作指針跳動
+- 凸輪連桿機構：用作雨傘裝飾上下移動
+- 往復滑塊機構：用作鐵門開
+5. 所有機械與原理，請整合在一具模型，彼此連動、符合主題
+此外，也為倒數計時鐘設計出多種的可調式參數，並整理在單一 UI 面板中提供使用者調整
+**作品理念**
+這件 作品是政大百年校慶 倒數計時機械式時鐘動畫，我 以鐘樓為出發點，製作包含政大特色的時鐘。
+- 雨傘造型代表政大很常下雨（用凸輪機構帶動雨傘上下移動）
+- 模型前方的鐵門緩慢打開，象徵歡迎校友回家（用往復滑塊機構帶動鐵門往左往右開啟 ）
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w15/2026-06-10-175147_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：加上物件 keyframe 並整合模型
+
+<ImageCarousel
+  label="CG_Proj02_W15 slideshow 1"
+  images={[
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-211920.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213356.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213811.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213843.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213852.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213902.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213916.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-213956.png", caption: " " }
+  ]}
+/>
+
+1. 這次的 keyframe 大多都是配合齒輪運動做的，所以沒有下得很多，圖中是所有 keyframe 設置
+2. 接下來是整合模型，我先建立一個平面物體當作 主模型，命名為 nccu lock，再將之前製作好的所有 node group 放入其中。實際做法是加入許多 geometry node 修改器，不過加入時會發現，模型只會呈現最後一個修改器的物件，因為前面會被覆蓋，所以要在所有 node group 的 group output 前，加入 join geometry，讓他們都可以順利被疊加，如圖2
+3. 所有修改器畫面如圖3~7，其中它們都包含可調式參數控制區，所以可以順利在這裡控制
+4. 所有物件整理如圖8，這樣作品就完成了
+
+### step 1-2：找音樂
+
+1. 我的音樂是從 [incompetech.com](https://incompetech.com/music/royalty-free/music.html) 和 [freesound](https://freesound.org/) 找的，所有音樂和音效如下：
+**音樂**
+[https://www.youtube.com/watch?v=pQ5Cw8NY96M](https://www.youtube.com/watch?v=pQ5Cw8NY96M)
+**音效**
+1. 時鐘滴答聲
+[https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B](https://freesound.org/people/InspectorJ/sounds/343130/?attribution=javascript%3Avoid%280%29%3B)
+2. 齒輪運轉聲
+[https://freesound.org/people/sidequesting/sounds/524027/](https://freesound.org/people/sidequesting/sounds/524027/)
+3. 敲鐘聲
+[https://freesound.org/people/acclivity/sounds/32304/](https://freesound.org/people/acclivity/sounds/32304/)
+4. 校門開啟聲
+[https://freesound.org/people/gchase/sounds/144046/](https://freesound.org/people/gchase/sounds/144046/)
+
+### step 2-1：展示模型顯示方式
+
+<ImageCarousel
+  label="CG_Proj02_W15 slideshow 2"
+  images={[
+    { src: "/images/project/computer-animation/project02-w15/2026-06-03-220610.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/solid.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/wireframe.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/normal.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/normal1.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/material-preview.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/rendered.png", caption: " " }
+  ]}
+/>
+
+1. Tris Statistics
+2. Solid mode
+3. Wireframe mode
+4. Normal direction（無背景）
+5. Normal direction（有背景）
+6. Material Preview
+7.Rendered
+
+### step 2-2：Rendering 展示
+
+<ImageCarousel
+  label="CG_Proj02_W15 slideshow 3"
+  images={[
+    { src: "/images/project/computer-animation/project02-w15/0001.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0178.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/image3.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0215.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0244.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0457.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0497.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0508.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/image.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/image1.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/image2.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0553.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0728.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w15/0888.png", caption: " " }
+  ]}
+/>
+
+以上展示多張成果圖
+
+### step 3-1：Animation
+
+<YouTubeEmbed src="https://www.youtube.com/embed/h__-Phmv8QU" title="YouTube video 1" />
+
+### step3-2：Demonstration + Breakdown
+
+<YouTubeEmbed src="https://www.youtube.com/embed/fUkqfYFidDU" title="YouTube video 2" />
+
+**遇到的問題/解決方式**
+
+**我遇到的問題有：**
+1. 我想從 geometry node 裡將材質的參數加到可調式參數區，直接和其他參數和同一個 UI 中被調整。因為材質做好、參數設定好後，到 geometry node 裡用 s et material 指定材質，此時可調整的參數接口就沒有出現，所以我不能拉一條線到 group input 去調整。
+- **解決方式** ：因為 shading 和 geometry node 面板屬於兩個不同 系統，所以需要用 a ttribute 讓這兩個系統可以溝通。
+- geometry node ：在 s et material 前加入 store named attribute ，讓可調式參數區的數值可以被存起來，同時要將它取一個名字，之後讓 shading 可以順利接收
+- shading：加入 attribute，將參數的 input 連上，並命名為剛剛取好的名字，這樣就可以讀取到 geometry node 存好的參數了
+2. 當齒輪在 旋轉時，上面的生鏽材質不會跟著旋轉
+- **解決方式：**在 transform geometry 前，新增 store named attribute，並將物體的 position 存進去，接著進入 shading，用 attribute 接收位置資訊，並用 mapping 映射位置座標到 noise texture 的 vector，這樣投影座標會隨網格一起旋轉，鐵鏽就可以貼合在齒輪上了
+這次遇到的問題大多來自材質與 geometry node 之間的溝通，我透過問 ai 來學習欲解決問題。
+
+**自己最滿意/最困難的部分，以及在製作該專案的獲得**
+
+**滿意：**
+這次模型的面數比期中少了一些，動畫也比較不卡一點。我透過將一些模型的 resolution 降低，像是把 cirve circle 的 resolution 從 32 降到 8，雖然外觀上沒有差很多，但面數減少了許多，等待 blender 算圖的時間也快了不少。
+**困難：**
+因為我的模型中有大量的齒輪傳動，所以一開始在設計齒輪擺放位置和計算傳動比時，花了一些時間。有時齒輪齒數決定好了，但位置、旋轉方向不對，就必須拆成兩個齒輪，或是調整齒輪位置，同時這樣就會連帶影響後面設計好的齒輪，所以此部分有花一些時間。
+我覺得這次製作專案有比期中時順利，因為期中遇到過的問題，像是 render 很慢、將所有物件整合在同一個模型，這次都有吸取之前的經驗，所以順利解決。另外我覺得透過這一學期的練習，用 goemetry node 製作模型的速度快了不少，這次模型大多是為了專案而新做的（少有從平時作業累積拿過來的），所以需要花一些時間製作，但我覺得這次的進度還算控制得好，且成果也很滿意。
+
+## 自我評量與作品建議
+
+**9 /10**
+
+這次專案學到最多是材質的製作，透過加上非純色的材質，我覺得模型有更接近真實狀態，整體質感也提升了不少。

@@ -1,0 +1,327 @@
+<MarkdownMeta
+  hours={4}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1ZzOMPAqbQQDMzBJBeshar-WTBCeTRcFf?usp=drive_link" }
+  ]}
+/>
+
+**可調式參數控制區操縱影片**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/KRfNhn4XMTU" title="YouTube video 1" />
+
+## 作品技術概念
+
+設計兩種鏈節型式，第一種為兩個圓環相扣、第二種為腳踏車鏈結，參考圖如下。
+兩種鏈節皆須能在 UI 控制兩環或鏈結中心點之距離，以應用於不同齒輪之尺距，並且設置 UI 來控制單一環或鏈節之粗細、材質、整體大小、增減整體數量。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/1.webp"
+    alt="設計兩種鏈節型式，第一種為兩個圓環相扣、第二種為腳踏車鏈結，參考圖如下。 兩種鏈節皆須能在 UI 控制兩環或鏈結中心點之距離，以應用於不同齒輪之尺距，並且設置 UI 來控制單一環或鏈節之粗細、材質、整體大小、增減整體數量。"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">設計兩種鏈節型式，第一種為兩個圓環相扣、第二種為腳踏車鏈結，參考圖如下。 兩種鏈節皆須能在 UI 控制兩環或鏈結中心點之距離，以應用於不同齒輪之尺距，並且設置 UI 來控制單一環或鏈節之粗細、材質、整體大小、增減整體數量。</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/2.webp"
+    alt="設計兩種鏈節型式，第一種為兩個圓環相扣、第二種為腳踏車鏈結，參考圖如下。 兩種鏈節皆須能在 UI 控制兩環或鏈結中心點之距離，以應用於不同齒輪之尺距，並且設置 UI 來控制單一環或鏈節之粗細、材質、整體大小、增減整體數量。"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">設計兩種鏈節型式，第一種為兩個圓環相扣、第二種為腳踏車鏈結，參考圖如下。 兩種鏈節皆須能在 UI 控制兩環或鏈結中心點之距離，以應用於不同齒輪之尺距，並且設置 UI 來控制單一環或鏈節之粗細、材質、整體大小、增減整體數量。</p>
+</div>
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/2026-05-09-182058_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+**circle chain 的 node**
+
+<ImageCarousel
+  label="CG_HW11 slideshow 1"
+  images={[
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184732.png", caption: "製作圓環 chain。\n先透過 resample curve 將曲線上的點數量增加，並均勻分布" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184753.png", caption: "instance 就放上圓環主體" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184805.png", caption: "調整 instance 的方向，讓它們沿著曲線切線方向排列。\n再將 index 是奇數的 instance 旋轉，讓圓環相扣" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184817.png", caption: "調整 curve 粗細的 node" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184834.png", caption: "加材質" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184915.png", caption: "群組成 node group" }
+  ]}
+/>
+
+**bicycle chain 的 node**
+
+<ImageCarousel
+  label="CG_HW11 slideshow 2"
+  images={[
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194241.png", caption: "製作腳踏車 chain。\n先透過 resample curve 將曲線上的點數量增加，並均勻分布" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194316.png", caption: "此 chain 分為內、外兩部分" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194842.png", caption: "先製作內鏈節，可以看到圖中的 chain inside，那是製作單一鏈片的 node group" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194910.png", caption: "這是 chain inside 的 node，透過兩圓與四邊形來製作主體，並用 extrudeNew 來擠出厚度" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195121.png", caption: "這也是 chain inside 的 node，用兩圓將剛剛製作的鏈片中央剪出兩個圓弧" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195144.png", caption: "這還是 chain inside 的 node，用兩個小圓將鏈片左右挖洞" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195202.png", caption: "這是 chain inside 最後的 node，用 transform geometry 調整模型整體大小" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195258.png", caption: "剛剛鏈片製作完就回到上一層，開始製做滾筒。我用兩個不同半徑的 cylinder 相剪，得到中空的滾筒。" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195322.png", caption: "加入材質" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195346.png", caption: "最後調整大小、旋轉" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195414.png", caption: "群組成 node group，接著製作外鏈節" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195739.png", caption: "鏈片製作方式和內鏈節的一樣" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195952.png", caption: "接著是軸的部分，我用半徑較小的 cylinder 來製作" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200014.png", caption: "加材質" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200034.png", caption: "調整大小、旋轉，並將此 node 群組成 node group，回到上一層" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200124.png", caption: "把製作好的內、外鏈節各接上 geometry to instances（讓兩個 instance 獨立），並用 join geometry 合併（目前兩個 instance 的 index 分別是 0、1）。" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200149.png", caption: "用 floored modulo 將 index 是奇、是偶區分開來，並分別賦予內外兩鏈節" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200214.png", caption: "將  chain 旋轉，使它們沿著曲線的切線方向排列。" },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200242.png", caption: "群組成 node group，bicycle chain links 製作完成" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：製作兩圓環相扣結構
+
+<ImageCarousel
+  label="CG_HW11 slideshow 3"
+  images={[
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-183905.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184732.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184753.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184805.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184817.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184834.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-184915.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-185038.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-193409.png", caption: " " }
+  ]}
+/>
+
+1. 先建立一個貝茲曲線，當作之後鏈節要走的路徑
+2. 為了讓 chain 在線上平均分布，需要先用 resample curve 將線上的點增加並重新均勻排列，用 trim curve 可以調整線的長度
+3. 接著製作 instance on points 中 instance 的部分
+- 我用四邊形 curve 來當作主體，並用 curve to mesh 將曲線變成實體，profile curve 的輸入值是 curve circle。
+- 接著加入表面細分，將 chain 的角變的圓弧一些
+4. 接著製作 instance on points 中的 rotation
+- 首先先用 curve tangent 搭配 align rotation to vector，可以讓 chain 旋轉，使它們沿著曲線的切線方向排列
+- 為了要將 index 是奇數的 chain 旋轉，使得奇偶數的 chain 可以呈現環環相扣，需要加入一個 rotate rotation，並將模式轉成 local。透過 floored modulo 2 將奇偶數 index 輸出成 1、0，並乘以需要旋轉的數值與用 combine XYZ 指定旋轉方向
+5. instance on points 中的 scale 和上課做的一樣，不過目前還不需調整曲線粗細（同時也是 instance 大小），所以我將 float curve 的數值都調成 1，這樣 instance on points node 都設置完成了
+6. 再來用 menu switch 將四種材質變成可以在 UI 中切換的
+7. 製作完成後，就將此 circle chain 的節點組成群組，命名為 circle chain links，並設置好可調式參數區
+8. 成果如圖8，可調式參數區數值如圖9
+
+### step 1-2：製作腳踏車鏈結
+
+<ImageCarousel
+  label="CG_HW11 slideshow 4"
+  images={[
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194241.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194316.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194842.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-194910.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195121.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195144.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195202.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195258.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195322.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195346.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195414.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195739.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-195952.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200014.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200034.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200124.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-212348.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-212412.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200149.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200214.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200242.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-214010.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-201433.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-201453.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw11/2026-05-09-200309.png", caption: " " }
+  ]}
+/>
+
+1. 和前一個鏈節一樣，先建立一個貝茲曲線，當作之後鏈節要走的路徑；加入 resample curve 來調整曲線細節
+2. 接著要做 instance on points 的 instance，因為腳踏車鏈節有分內外兩部分，所以我分兩部分做
+- 首先是 bicycle chain_inside，進入此 node group（圖3）後可以看到 chain inside 的 node group，這是上下兩個鏈片的部分。
+- 進入 chain inside （圖4） 後，我先用兩個 curve circle 和 fill curve 來建立圓圈，底下是用 quadrilateral 來建立四邊形，並用 join geometry 合併，再用之前上課做的 extrudeNew 來擠出厚度
+- 因為鏈片中央切口是圓弧的，所以我用 mesh boolean 把原來的模型切掉 兩個圓
+- 因為調整模型厚度的同時，模型位置也會跑掉（不在中心），所以最後加上 transform geometry 來微調位置
+- 此時 chain inside 就做完了（圖7），將這些節點群組起來，並回到上一層（圖3 那層）
+3. 因為鏈片有分上下兩層，是對稱的，所以我調整位置時要鏡像調整。用 combine XYZ 單一調整 y 軸位置，下鏈片要加上 multiply -1 來達成反向移動（圖3）
+4. 接著在同一層級（回到圖8）製作滾筒，透過兩個不同半徑的 cylinder 用 mesh boolean 相減，可以得到中空的圓 筒。因為滾筒有左右兩個，所以另一個用 transform geometry 調整位置，並用 join geometry 來合併
+5. 把剛剛做的鏈片與滾筒都加上材質，並用 menu switch 讓材質可以透過 UI 來選擇，最後用 join geometry 合併兩部分
+6. 因為整個外鏈節需要可以調整大小，所以加上 transform geometry 並用 combine XYZ 來指定要調整的軸向，如圖10
+7. 最後將這些 node 群組成 bicycle chain_inside，設置好可調式參數控制區，如圖11
+8. 再來要做 bicycle chain_outside 的部分，進入此 node group 後，可以看到和剛剛內鏈片一樣的節點，且製作過程也是一樣的，所以就跳過此部分（圖12）
+9. 接著是做軸的部分，我用 cylinder 並將半徑調小一些、depth 調大一些，並將兩部分的軸用 join geometry 合併
+10. 接下來和剛剛一樣，給予模型材質，並用 join geometry 將軸與鏈片合併
+11. 合併完後和之前做法相同，為了調整 chain 的大小，加上 transform geometry 並用 combine XYZ 來指定要調整的軸向，如圖15
+12. 製作完後就將這些 node 群組成 bicycle chain_outside，設置好可調式參數控制區，如圖16
+13. 為了要將內、外鏈節輪流放在點上，變成一個完整的鏈條，我問了 ai 詳細的做法， 如圖17、18 。透過 geometry to instance 將內外兩部分鏈節分別變成兩個 instance，再用 join geometry 合併。因為剛剛有用 geometry to instance，所以現在輸出不是一個 instance，而是一個清單，裡面有兩個分開的 instance，並且賦予 index=0 和 index=1
+14. 接著把 pick instance 打開，在 instance index 的輸入口接上判斷 index 是奇、偶的節點
+15. scale 輸入口也是和上面的一樣，至此 instance on points 就完成了，將所有 node 群組成 bicycle chain_outside，設置好可調式參數控制區，如圖21、22
+16. 實際成果如圖23、24
+17. 最後將兩個做好的鎖鏈加上 realize instances，並用 menu switch 做成可切換鎖鏈類型的選單，就完成了！
+
+### step 2-1：蒐集 十種機械式原理型式
+
+因為 Project02 需製作政大百年校慶倒數計時機械式時鐘，所以這週要先在網路上蒐集想要製作的十種機械原理型式。
+
+**1. 鏈條傳動機構**影片的播放時間點：[https://youtu.be/ag5sb85o8jQ?si=uZZm94acBCIHU-7o&t=72](https://youtu.be/ag5sb85o8jQ?si=uZZm94acBCIHU-7o&t=72)****
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/1_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<YouTubeEmbed src="https://www.youtube.com/embed/ag5sb85o8jQ" title="YouTube video 2" />
+
+**2. 齒輪與齒輪傳動**右影片的播放時間點：[https://youtu.be/nhd0NdZDjWw?si=A6rWxPIAeQ0K3xVS&t=691](https://youtu.be/nhd0NdZDjWw?si=A6rWxPIAeQ0K3xVS&t=691)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/2_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/2-2_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<YouTubeEmbed src="https://www.youtube.com/embed/Fm_JqGcccAk" title="YouTube video 3" />
+
+<YouTubeEmbed src="https://www.youtube.com/embed/nhd0NdZDjWw" title="YouTube video 4" />
+
+**3.** 日內瓦機構
+用來顯示秒或日的**跳動**
+中間影片的播放時間點：[https://youtu.be/nhd0NdZDjWw?si=d_p3OuKmrXN8gGT2&t=391](https://youtu.be/nhd0NdZDjWw?si=d_p3OuKmrXN8gGT2&t=391)
+**參考 shorts：**[https://youtube.com/shorts/qzQl7gHSZsk?si=ZMKzkDMZYRATNSXT](https://youtube.com/shorts/qzQl7gHSZsk?si=ZMKzkDMZYRATNSXT)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/3_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<YouTubeEmbed src="https://www.youtube.com/embed/nhd0NdZDjWw" title="YouTube video 5" />
+
+<YouTubeEmbed src="https://www.youtube.com/embed/t7ZnHDdIvn0" title="YouTube video 6" />
+
+**4. 滑塊曲柄機構**
+影片的播放時間點： [https://youtu.be/nhd0NdZDjWw?si=1Lz4djz5sgdiXGo8&t=243](https://youtu.be/nhd0NdZDjWw?si=1Lz4djz5sgdiXGo8&t=243)
+**參考網頁：**[https://link1515.github.io/mechanical-learning/linkage/slider-crank/home.html](https://link1515.github.io/mechanical-learning/linkage/slider-crank/home.html)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/4_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<YouTubeEmbed src="https://www.youtube.com/embed/nhd0NdZDjWw" title="YouTube video 7" />
+
+**5.** 棘輪與棘爪
+單向傳動的結構，防止齒輪倒轉
+**參考 shorts：** [https://youtube.com/shorts/lw04cZg59F4?si=vhgXWtaZpxI8VSZ_](https://youtube.com/shorts/lw04cZg59F4?si=vhgXWtaZpxI8VSZ_)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/5_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<YouTubeEmbed src="https://www.youtube.com/embed/LdvysdJJXW0" title="YouTube video 8" />
+
+**6.** 行星齒輪系統
+多個齒輪繞著中心旋轉
+
+<YouTubeEmbed src="https://www.youtube.com/embed/671UWdBV3WI" title="YouTube video 9" />
+
+**7.** 凸輪連桿機構
+旋轉的凸輪推動上方的桿子上下運動
+**參考 shorts：**[https://youtube.com/shorts/1ZoMVrBUp8w?si=RJP_NdAVUg4uHEXM](https://youtube.com/shorts/1ZoMVrBUp8w?si=RJP_NdAVUg4uHEXM)
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw11/7_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+**8.****蝸桿傳動**
+**參考網頁：**[https://link1515.github.io/mechanical-learning/linkage/slider-crank/reciprocating.html](https://link1515.github.io/mechanical-learning/linkage/slider-crank/reciprocating.html)****
+
+<YouTubeEmbed src="https://www.youtube.com/embed/n1Nid9yb8OE" title="YouTube video 10" />
+
+**9.****往復滑塊機構**
+旋轉圓盤讓 滑塊 來回直線運動
+
+<YouTubeEmbed src="https://www.youtube.com/embed/RDixpdSGERQ" title="YouTube video 11" />
+
+**10.****擒縱機構**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/fIjnFIwPmIE" title="YouTube video 12" />
+
+## 自我評量與作品建議
+
+**8/10**
+
+這次的模型製作因為要考慮到後續的應用，像是不同齒數的齒輪放上去適不適合，所以設定了許多可調式參數，讓之後製作可以更順利一些。
+**過程中遇到的困難：**
+這次沒有太大的困難。
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過上課製作的檔案來解決問題。
+因為腳踏車鏈比較複雜，所以就上網找了分解圖參考
+[http://www.dali-chc.com/uploads/news/1000/2/1a28aabcb3592f7.jpg](http://www.dali-chc.com/uploads/news/1000/2/1a28aabcb3592f7.jpg)
+另外也看了老師給的機械式原理型式參考影片
+- [https://www.youtube.com/watch?v=ag5sb85o8jQ](https://www.youtube.com/watch?v=ag5sb85o8jQ)
+- [https://www.youtube.com/watch?v=nhd0NdZDjWw](https://www.youtube.com/watch?v=nhd0NdZDjWw)
+與機械式時鐘參考影片
+- [https://www.youtube.com/watch?v=rEa1HmCJ6Gg](https://www.youtube.com/watch?v=rEa1HmCJ6Gg)
+時鐘齒輪相關知識
+- [https://www.youtube.com/watch?v=lQAOSIBiWmI](https://www.youtube.com/watch?v=lQAOSIBiWmI)

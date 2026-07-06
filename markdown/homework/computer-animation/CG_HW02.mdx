@@ -1,208 +1,229 @@
-﻿<MarkdownMeta
+<MarkdownMeta
   hours={6}
   links={[
-    {
-      label: "Blender 檔案",
-      text: "File Link",
-      href: "https://drive.google.com/drive/folders/1VDWIeOpFpA1NQjfMknrGEEXpveYp06Wg?usp=sharing",
-    },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1VDWIeOpFpA1NQjfMknrGEEXpveYp06Wg?usp=sharing" }
   ]}
 />
 
 ## 作品技術概念
 
-用 Geometry Node 製作一片心型葉子。葉子的 Pivot 需為 `(0, 0, 0)`，並且要有葉面寬度控制、葉子尖端控制、葉面厚度控制，以及其他有趣的參數變化控制。
+用 Geometry Node 製作一片心型葉子，葉子的 Pivot 須為 (0,0,0)、須有葉面寬度控制、葉子尖端控制、葉面厚度控制，以及其他有趣的參數變化控制。
 
 <div className="flex flex-col items-center justify-center">
-   <Image 
-    src="/images/homework/computer-animation/hw02/leave-hw_orig.jpg" 
-    alt="葉子參考圖" 
-    width={400} 
-    height={200}
+  <Image
+    src="/images/homework/computer-animation/hw02/leave-hw_orig.jpg"
+    alt="葉子參考圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
   />
-  <p className="-mt-6 text-sm text-slate-500">葉子參考圖</p>
+  <p className="-mt-2 text-sm text-slate-500">葉子參考圖</p>
 </div>
 
-## 節點概念說明
+## 節點概念說明（附上實際節點、面數等截圖）
 
 <div className="flex flex-col items-center justify-center">
-   <Image 
-    src="/images/homework/computer-animation/hw02/1495664139_orig.png" 
-    alt="節點概念示意" 
-    width={300} 
-    height={200}
+  <Image
+    src="/images/homework/computer-animation/hw02/1495664139_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
   />
 </div>
 
 <ImageCarousel
-  label="節點概念說明輪播"
+  label="CG_HW02 slideshow 1"
   images={[
-    { src: "/images/homework/computer-animation/hw02/1.png", caption: "新增一個 grid、擠出面" },
-    { src: "/images/homework/computer-animation/hw02/2.png", caption: "調整面的寬度，包含各個面與整體調整" },
-    { src: "/images/homework/computer-animation/hw02/3.png", caption: "將葉基高度往上移動，最底部移動 1 倍時，上面部分移動 0.5 倍，避免葉基上部重疊" },
+    { src: "/images/homework/computer-animation/hw02/1.png", caption: "新增一個grid、擠出面" },
+    { src: "/images/homework/computer-animation/hw02/2.png", caption: "調整面的寬度（包含各個面與整體調整）" },
+    { src: "/images/homework/computer-animation/hw02/3.png", caption: "將葉基高度往上移動，最底部移動1倍時，上面部分會移動0.5倍（避免葉基上部分移動太多，導致重疊）" },
     { src: "/images/homework/computer-animation/hw02/4.png", caption: "擠出葉柄、調整葉柄寬度" },
-    { src: "/images/homework/computer-animation/hw02/5.png", caption: "將葉片下緣心型部分往內收，透過將 x 座標乘以 0.5 的方式完成" },
-    { src: "/images/homework/computer-animation/hw02/6.png", caption: "將 Pivot 設定在 (0, 0, 0)，並新增葉片厚度" },
-    { src: "/images/homework/computer-animation/hw02/7.png", caption: "最終參數介面" },
+    { src: "/images/homework/computer-animation/hw02/5.png", caption: "將葉片下緣（心型部分）往內收一些，透過將 x 座標乘以0.5的方式完成" },
+    { src: "/images/homework/computer-animation/hw02/6.png", caption: "將Pivot設定在(0,0,0)、新增葉片厚度" },
+    { src: "/images/homework/computer-animation/hw02/7.png", caption: " " }
   ]}
 />
 
-## 技術概念說明與過程記錄
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
 
 ### step 1-1：葉子基本形狀
 
 <ImageCarousel
-  label="step 1-1 葉子基本形狀"
+  label="CG_HW02 slideshow 2"
   images={[
     { src: "/images/homework/computer-animation/hw02/583596268.jpg", caption: "先畫一張草圖，幫助思考" },
     { src: "/images/homework/computer-animation/hw02/w2-1-1.png", caption: "新增參考圖" },
     { src: "/images/homework/computer-animation/hw02/w2-1-2.png", caption: "擠出基本面" },
     { src: "/images/homework/computer-animation/hw02/w2-1-3.png", caption: "調整寬度" },
-    { src: "/images/homework/computer-animation/hw02/w2-1-4.png", caption: "Extrude Mesh 節點" },
-    { src: "/images/homework/computer-animation/hw02/w2-1-5.png", caption: "Scale Elements 節點" },
-    { src: "/images/homework/computer-animation/hw02/w2-1-6.png", caption: "表面細分後的結果" },
+    { src: "/images/homework/computer-animation/hw02/w2-1-4.png", caption: "extrude mesh節點" },
+    { src: "/images/homework/computer-animation/hw02/w2-1-5.png", caption: "scale elements節點" },
+    { src: "/images/homework/computer-animation/hw02/w2-1-6.png", caption: "表面細分後的結果" }
   ]}
 />
 
-1. 首先先畫一張草圖幫助自己思考，要怎麼長出葉子的各個部分。
-2. 將葉子的參考圖放進檔案中，製作時可以對照著看。
-3. 我先製作上面 4 個面，也就是葉片的部分，不包含底部心形。
-4. 透過 Extrude Mesh 將面擠出。將 Vector 節點接到 offset，可以決定擠出的軸向，並調整偏移量。
-5. 透過 Scale Elements 調整單一軸向的寬度。
-6. 大致寬度調整完畢後，加上表面細分，就有葉片的感覺了。
+1. 首先先畫一張草圖幫助自己思考，要怎麼長出葉子的各個部分
+2. 將葉子的參考圖 放進檔案中，幫助我製作時可以對照著看。
+3. 我先製作上面 4 個面，也就是葉片的部分（不包含底部心形）
+- 透過 Extrude Mesh 將面擠出
+- 將 Vector 節點接到 offset，可以決定擠出的軸向，並調整偏移量
+- 透過 Scale Elements 調整單一軸向的寬度
+4. 大致寬度調整完畢，加上一個表面細分，就有葉片的感覺了！
 
 ### step 1-2：新增可調節參數：葉子基本形狀
 
 <ImageCarousel
-  label="step 1-2 新增葉子基本形狀參數"
+  label="CG_HW02 slideshow 3"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-2-1.png", caption: "新增葉尖高度、葉尖寬度與整體寬度參數" },
-    { src: "/images/homework/computer-animation/hw02/w2-2-2.png", caption: "參數調整效果" },
-    { src: "/images/homework/computer-animation/hw02/w2-2-3.png", caption: "葉片形狀變化" },
+    { src: "/images/homework/computer-animation/hw02/w2-2-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-2-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-2-3.png", caption: " " }
   ]}
 />
 
-1. 首先新增了 **葉尖高度** 與 **葉尖寬度** 的調節參數。
-2. 發現調整葉片中段寬度很容易影響整體，因為我將葉片切成比較多塊，所以改成一次調整目前所有面的寬度。
-3. 新增圖中右半部的節點，用來調整 **葉片整體寬度**。
+1. 首先新增了 **葉尖高度**與 **葉尖寬度**的調節參數
+2. 發現調整葉片中段的寬度很難影響到整體（因為我將葉片切成比較多塊），所以改成一次調整目前所有面的寬度。
+- 新增圖中右半部的節點，用來 調整 **葉片整體寬度**
 
-### step 2-1：葉柄製作、調整葉基位置
+### step 2-1：葉柄製作、調整葉基位置（做出心型葉片）
 
 <ImageCarousel
-  label="step 2-1 葉柄與葉基位置"
+  label="CG_HW02 slideshow 4"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-3-1.png", caption: "向 -Y 方向擠出葉柄" },
-    { src: "/images/homework/computer-animation/hw02/w2-3-2.png", caption: "調整葉基位置" },
-    { src: "/images/homework/computer-animation/hw02/w2-3-3.png", caption: "分段調整移動幅度" },
-    { src: "/images/homework/computer-animation/hw02/w2-3-4.png", caption: "形成心型葉片" },
+    { src: "/images/homework/computer-animation/hw02/w2-3-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-3-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-3-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-3-4.png", caption: " " }
   ]}
 />
 
-1. 向 `-Y` 方向擠出葉柄。
-2. 將葉基整體往上提，製作心型葉片。
-3. 在葉柄節點前新增調整葉基高度的節點，先調整高度，再長出葉柄。這樣葉柄最下方就可以跟著葉基移動而移動。
-4. 為了讓葉基移動得更自然並避免模型重疊，我將移動的點分為兩部分：`16-18` 和 `50、53`，並透過 Math 節點改變兩部分移動的數值。當 `16-18` 往 Y 方向移動 1 倍時，`50、53` 會往 Y 方向移動 0.5 倍。
+1. 向 -y 方向擠出葉柄
+2. 將葉基整體往上提，製作心型葉片
+- 在葉柄節點前新增調整葉基高度的節點（先調整高度，再長出葉柄），這樣葉柄最下方就可以跟著葉基移動而移動（不會固定不動）
+- 為了讓葉基移動得更自然與避免模型重疊， 我將移動的點分為兩部分：16~18 和 50、53，並透過 math 節點來改變兩部分移動的數值。當 16~18 往 y 方向移動1 倍時， 50、53 會往 y 方向移動 0.5 倍
 
 ### step 2-2：新增調節參數：葉柄、葉基
 
 <ImageCarousel
-  label="step 2-2 葉柄與葉基參數"
+  label="CG_HW02 slideshow 5"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-4-1.png", caption: "葉基高度參數" },
-    { src: "/images/homework/computer-animation/hw02/w2-4-2.png", caption: "葉柄寬度參數" },
+    { src: "/images/homework/computer-animation/hw02/w2-4-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-4-2.png", caption: " " }
   ]}
 />
 
-1. 新增 **葉基高度** 的調節參數。
-2. 新增 **葉柄寬度** 的調節參數。
+1. 新增**葉基高度**的調節參數
+2. 新增**葉柄寬度** 的調節參數
 
 ### step 3：細節調整：葉片下緣位置、葉尾寬度調整
 
 <ImageCarousel
-  label="step 3 葉片下緣與葉尾寬度"
+  label="CG_HW02 slideshow 6"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-5-1.png", caption: "調整葉片下緣位置" },
+    { src: "/images/homework/computer-animation/hw02/w2-5-1.png", caption: " " },
     { src: "/images/homework/computer-animation/hw02/w2-5-2.png", caption: "葉尾形狀有點方" },
-    { src: "/images/homework/computer-animation/hw02/w2-5-3.png", caption: "讀取點座標" },
-    { src: "/images/homework/computer-animation/hw02/w2-5-4.png", caption: "計算 X 方向偏移量" },
-    { src: "/images/homework/computer-animation/hw02/w2-5-5.png", caption: "葉尾寬度調整後" },
+    { src: "/images/homework/computer-animation/hw02/w2-5-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-5-4.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-5-5.png", caption: " " }
   ]}
 />
 
-1. 我覺得目前 `0、2` 這兩點，也就是心型部分太開，所以想將兩點往中間移動。
-2. 為了算出 X 方向的偏移量，先透過 Position 節點讀取點位置，再單獨取出 X 座標數值。
-3. 接著將 X 座標數值乘以 `-0.5` 算出偏移量。負號是因為左邊的點要往右，右邊的點要往左移動。
-4. 最後透過 Combine XYZ 節點指定 X 方向的偏移量。
-5. 目前這片葉子的下半部有點方，所以回到前面，在表面細分之前新增葉尾寬度調整的節點，將 3 號邊變寬、將 2 號邊變窄。
+1. 因為我覺得目前 0、2 這兩點（心型部分）太開了，所以想將兩點往中間移動。為了算出 x 方向的偏移量：
+- 先透過 position 節點讀取點位置，再單獨取出 x 座標數值
+- 接著將 x 座標數值乘以 -0.5 算出 偏移量（負號是因為左邊的點要往右，右 邊的點要往左移動）
+- 最後透過 combine XYZ 節點指定 x 方向的偏移量
+2. 目前這片葉子的下半部有點方，所以我回到前面，在表面細分之前新增葉尾寬度調整的節點，將 3 號邊變寬、將 2 號 邊 變窄
 
 ### step 4：新增調節參數：葉片中段寬度、葉柄長度
 
 <ImageCarousel
-  label="step 4 葉片中段寬度與葉柄長度"
+  label="CG_HW02 slideshow 7"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-6-1.png", caption: "新增葉片中段寬度參數" },
-    { src: "/images/homework/computer-animation/hw02/w2-6-2.png", caption: "新增葉柄長度參數" },
-    { src: "/images/homework/computer-animation/hw02/w2-6-3.png", caption: "參數調整效果" },
+    { src: "/images/homework/computer-animation/hw02/w2-6-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-6-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-6-3.png", caption: " " }
   ]}
 />
 
-為了增加其他有趣的參數變化控制，我新增了 **葉片中段寬度** 和 **葉柄長度** 的調節參數。
+1. 為了增加其他有趣的參數變化控制，我新增了**葉片中段寬度**和**葉柄長度**的調節參數
 
 ### step 5-1：最終設定：Pivot 位置與葉片厚度
 
 <ImageCarousel
-  label="step 5-1 Pivot 位置與葉片厚度"
+  label="CG_HW02 slideshow 8"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-7-1.png", caption: "嘗試調整整體位置" },
-    { src: "/images/homework/computer-animation/hw02/w2-7-2.png", caption: "AI Studio 給的思路" },
-    { src: "/images/homework/computer-animation/hw02/w2-7-3.png", caption: "AI Studio 給的思路" },
-    { src: "/images/homework/computer-animation/hw02/w2-7-4.png", caption: "Pivot 與厚度設定" },
+    { src: "/images/homework/computer-animation/hw02/w2-7-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-7-2.png", caption: "ai studio 給的思路" },
+    { src: "/images/homework/computer-animation/hw02/w2-7-3.png", caption: "ai studio 給的思路" },
+    { src: "/images/homework/computer-animation/hw02/w2-7-4.png", caption: " " }
   ]}
 />
 
-1. 要將 Pivot 位置調整到 `(0, 0, 0)`，我一開始想到的是透過開頭接在 Grid 後面的 Set Position 節點來調整整體位置。不過因為不知道 Pivot，也就是 86 號點的精準位置，所以怎麼調整都對不到原點。
-2. 我詢問 AI：要如何得到 86 號點的 Y 座標，並將整體葉片向上移動 Y 值，使 86 在原點 `(0, 0, 0)`。
-3. 解法是新增 Bounding Box 節點，用來讀取葉子邊界座標，並將最小 Y 值，也就是 box 底部取出。
-4. 再新增 Set Position 節點，把剛剛讀到的數值乘以 `-1`，得到大於 0 的偏移量。
-5. 最後透過 Combine XYZ 節點，將葉子整體向正 Y 方向偏移。
-6. 透過詢問 AI 學到：Bounding Box 和 Set Position 這兩個步驟是分開進行的，前者取得偏移量，後者進行整體偏移。
-7. 最後用 Extrude Mesh 節點，將葉片整體擠出厚度。
+1. 要將 Pivot 位置調整到 (0,0,0)，我一開始想到的是：透過開頭（接在 grid 後面的）set position 節點來調整整體位置，不過因為不知道 Pivot （86 號點）的精準位置，所以怎麼調整都對不到原點
+2. 我詢問 ai：要如何得到 86 號點的 y 座標，並將整體葉片向上移動 y 值，使 86 在原點（0,0,0）。得出的結果如圖二、圖三
+- 新增一個 bounding box 節點，用來讀取葉子邊界座標
+- 並將最小 y 值（也就是 box 底部）取出
+- 再新增一個 set position 節點，把剛剛讀到的數值乘以 -1（因為 y 值為負），得到大於 0 的偏移量
+- 最後透過 combine XYZ 節點，將葉子整體向正 y 方向偏移
+3. **透過詢問 ai 學到：** bounding box 和 set position 節點這兩個步驟是分開進行的，從前者得到偏移量，從後者進行整體偏移
+4. 最後用 extrude mesh 節點，將葉片整體擠出厚度
 
 ### step 5-2：新增調節參數：葉片厚度
 
 <ImageCarousel
-  label="step 5-2 葉片厚度"
+  label="CG_HW02 slideshow 9"
   images={[
-    { src: "/images/homework/computer-animation/hw02/w2-8-1.png", caption: "新增葉片厚度參數" },
-    { src: "/images/homework/computer-animation/hw02/w2-8-2.png", caption: "厚度調整效果" },
-    { src: "/images/homework/computer-animation/hw02/w2-8-3.png", caption: "完成後共有 8 種可調參數" },
+    { src: "/images/homework/computer-animation/hw02/w2-8-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-8-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw02/w2-8-3.png", caption: " " }
   ]}
 />
 
-1. 新增 **葉片厚度** 的調節參數。
-2. 模型製作完成，所有可調節的參數共有 8 種。
+1. 新增 **葉片厚度** 的調節參數
+2. 模型製作完成：所有可調節的參數共有 8 種（圖三）
 
 ## 自我評量與作品建議
 
 **8/10**
 
-最終成果圖如下：
+**最終成果圖如下：**
 
-![最終成果圖 1](/images/homework/computer-animation/hw02/w2-9-1_orig.png)
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw02/w2-9-1_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
 
-![最終成果圖 2](/images/homework/computer-animation/hw02/w2-9-2_orig.png)
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw02/w2-9-2_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
 
-這是我第一次用 Geometry Node 來建模。過程中透過參考上課時製作的檔案來釐清各節點的功能，有批次存檔讓我在學習時非常清楚目前的步驟；卡關時也會詢問 AI Studio，幫助我思考與解決問題。雖然邊學習邊製作花了比較久的時間，但是完成後有很大的成就感。
-
-透過 Geometry Node 來建模，讓我了解到用這種方式雖然速度較慢，但非常有邏輯、步驟也很清楚。最重要的是可以動態且精準地調整參數，不用怕做完後反悔卻無法調整。
-
-**過程中遇到的困難：** step 2-1 在思考要如何製作葉基兩邊的心型葉片時，首先想到的是將葉柄旁的兩個邊向下擠出。不過實際製作後發現，它並沒有照著我指定的邊去長，而是長在其他邊上。於是我換個思路，改成調整葉基位置，將葉基往上提，就能產生心型葉片，而且這樣做的葉片模型或許會比一開始的方式自然一些。
+這是我第一次用 Geometry Node 來建模，過程中透過參考上課時製作的檔案來釐清各節點的功能（有批次存檔讓我在學習時非常清楚目前的步驟），在卡關時也會詢問我的 ai studio 幫助我思考與解決問題。雖然邊學習邊製作花了比較久的時間，但是完成後有很大的成就感！
+透過 Geometry Node 來建模，讓我了解到用這種方式雖然速度較慢，但非常有邏輯、步驟也很清晰，最重要的是可以動態且精準地調整參數，不用怕做完後反悔卻無法調整。
+**過程中遇到的困難：**
+**step 2-1：**在思考要如何製作葉基兩邊的心型葉片時，首先想到的是：將葉柄旁的兩個邊向下擠出。不過實際製作後發現，它並沒有照著我指定的邊去長，而是長在其他邊上。於是我換個思路：改成調整葉基位置，將葉基往上提，就能產生心型葉片了，而且這樣做的葉片模型或許會比一開始的方式自然一些。
 
 ## 解決問題之能力與參考資源
 
-製作過程中，我透過上課製作的檔案與詢問 AI 來解決問題。
+製作過程中，我透過上課製作的檔案與詢問 ai 來解決問題。
+我將 [官方教學手冊](https://docs.blender.org/manual/en/4.3/) 的連結餵給 ai studio，讓它依據手冊內容來回答問題。
 
-我將 [官方教學手冊](https://docs.blender.org/manual/en/4.3/) 的連結餵給 AI Studio，讓它依據手冊內容來回答問題。
-
-![AI Studio 畫面](/images/homework/computer-animation/hw02/w2-9-3_orig.png)
-
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw02/w2-9-3_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>

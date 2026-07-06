@@ -1,0 +1,205 @@
+<MarkdownMeta
+  hours={3.5}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/13Qm011AZv3y120-41CzEnSM6UNZYzprc?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/file/d/1YV9jhMZzpxvOI_k_fc9o_gEGE9bqrgFy/view?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/file/d/1i0TinATNLsMo4YpzG1bb2wA20UxNEQLQ/view?usp=drive_link" }
+  ]}
+/>
+
+**完整影格圖（zip）**
+
+同儕學習觀摩 blender 檔案（zip）
+
+<YouTubeEmbed src="https://www.youtube.com/embed/9yw6tNjAay0" title="YouTube video 1" />
+
+## 作品技術概念
+
+用 Distribute Points On Faces Node 與 Instance On Point Node，製作政大 Logo 之 Particle 動畫。粒子在三維空間中運動，最後集合在一起形成政大 LOGO 的形狀。
+環境以 Volume Light 搭配 Noise Texture 遮光片進行打光（使用 EEVEE 引擎），並在動畫中展現鏡頭語言。
+Animation 總共有 192 格（8秒），影格圖輸出 Resolution 為3840 x 2160，格式為PNG；影片輸出 Resolution 為 1920x1080。
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw07/w7_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<ImageCarousel
+  label="CG_HW07 slideshow 1"
+  images={[
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235222.png", caption: "這是 leaf(particle) 的 node，先透過 scale element 進行整體縮放，再用 transfrom geometry 移動葉子，擠出厚度後再表面細分" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235245.png", caption: "旋轉葉子後再合併原來和現有的" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235329.png", caption: "再透過 transform geometry，將 leaf\n 整體進行一次 x 方向的縮放" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235401.png", caption: "群組 leaf 的 node" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234627.png", caption: "這是 logo particle 們的 node，先透過 Distribute Points On Faces 將點分布在 logo 面上" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234749.png", caption: "透過 instance on points 將 particle 取代點的位置，並新增隨機旋轉與縮放的 node" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234815.png", caption: "透過 set position 與 combine XYZ 將 particle 分布在 z 軸上" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234840.png", caption: "透過 noise texture 的 color 接口，與multiply 組合，可以控制要偏移的向量。最後將向量加到 set position 的 offset，可以控制 particle 發散與收縮" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234902.png", caption: "群組 particle 的 node" },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234923.png", caption: "可調式參數控制區如圖" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：製作 particle 主體 - 葉子
+
+<ImageCarousel
+  label="CG_HW07 slideshow 2"
+  images={[
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235140.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235222.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235245.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235329.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235401.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235422.png", caption: " " }
+  ]}
+/>
+
+1. 我先製作 particle 主體，用葉子模型來代表 particle
+- 建立一個平面，進入編輯模式，將上方兩點按下 m 合併
+2. 進入 geometry node，開始製作模型。
+- 首先調整尺寸、將葉子上移到中心，再用 extrude mesh 擠出厚度，最後用 subdivision surface 來細分表面
+3. 但是這樣底部是平的（半個的），我想製作完整的，所以要將葉子以 y 方向旋轉 180 度，並將原來和現在的葉子用 mesh boolean 合併
+4. 最後調整整體大小，我將葉子的 x 方向變窄，製作完成後就群組 node
+5. 葉子模型如圖6
+
+### step 1-2：使用政大 logo 圖片製作出 particle 版的 logo
+
+<ImageCarousel
+  label="CG_HW07 slideshow 3"
+  images={[
+    { src: "/images/homework/computer-animation/hw07/w7-1-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-143145.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-143549.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-143710.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234627.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234749.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234815.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234816.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234840.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-003846.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-003909.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-003929.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234902.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-234923.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-12-235446.png", caption: " " }
+  ]}
+/>
+
+1. 現在將 logo 匯入 blender 中，右鍵選取 Trace Image To Grease Pencil，之後就擁有一個完美的曲線了
+- 此時原本的 logo 就可以刪掉
+- 圖2 是我問 ai Trace Image To Grease Pencil 用途的結果：它可以將圖轉成曲線（透過辨識明顯、高對比度的邊緣來取得線）
+2. 因為此物體還不是 mesh，所以要先將它轉成 mesh
+3. 轉完後它只剩下邊線，所以要進入編輯模式，全選後按 F 將 logo 中間填滿
+4. 接著進入 geometry node，首先透過 Distribute Points On Faces 來隨機 生 成點在面上，使用 poisson disk 可以避免點太過於擁擠（它們彼此會有一定的距離）
+5. 加入 instance on points，將製作好的葉子拖進這裡面，當作 instance（要勾選 as instance），也就是之後的 particle，並設定一個材質給它
+6. 要讓 particle 隨機轉動，可以加入 random value，並用 scene time 的秒數控制它的 max 值（意思是每秒 max 都不一樣，視覺上就能達成持續在轉的效果）。要用 add 來將 這個向量加在 rotation 上，並可用 multiply 控制 rotation 的速度
+7. 接著要調整 particle 的大小，一樣用 random value 隨機調整
+8. 接著加入 set position，用 combine XYZ 連接 offset，並將 random value 範圍設定在 0~0.5，接到 z 方向上。使 particle 可以在 z 軸的 0~0.5 隨機分布（如圖8）
+9. 再來要設定 particle 收縮，透過將 noise texture 的 color 向量與 0~1 的向量相乘，並接在 set position 的 offset 可以改變 particle 的位置
+- 乘 (1,1,1) particle 會變遠 =&gt; 發散
+- 乘 (0,0,0) particle 位置不變 =&gt; 留在原地
+- color 其實是 particle 的位置向量，所以再 乘以 (1,1,1 ) 代表 particle 離原點的距離越來越遠
+- 圖10~12 是我問 ai 此節點接法的結果
+10. 最後將製作好的 node 群組起來
+11. 可調式參數控制區如圖14
+12. 成果 如 圖15
+
+### step 2-1：打光、製作環境
+
+<ImageCarousel
+  label="CG_HW07 slideshow 4"
+  images={[
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-004955.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-005123.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-005445.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-005844.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/493920423.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-005935.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-010015.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-010657.png", caption: " " }
+  ]}
+/>
+
+1. 首先加入一個平面，當作 animation 的背景，並加上黑色材質
+2. 新增一個聚光燈，將功率調大，照亮 particle 們
+3. 再來要製作體積光
+- 新增一個 cube，將 cube 放大到可以完全包住整個場景（包含 particle、燈光、平面）
+- 打開上方 shading 面板，並將右側材質中的 surface 改成 none，volume 改成 volume scatter，最後將 density 調小，直到場景中 cube 變成半透明、避免太霧，改變體積顏色後，體積光就做好了
+- 如圖4
+- 圖5 是我問 ai 關於體積光設置的結果
+4. 再來要將燈光變得有紋理，新增一個平面，移動至光源處
+- 在 shading 面板中開始加入材質
+- 使用 noise texture 可以製作噪波紋理，並透過 color ramp 將黑的變更黑，白的變更白，讓它們的界線變得明顯一些
+- 這樣就完成燈光紋理了
+5. 為了讓之後移動燈光時，紋理可以跟著移動，我們先選中材質平面，再選中燈光，按下 ctrl+p 可以設定父層，之後移動燈光時它就會帶著平面一起移動了，如圖ㄚ
+6. 調整攝影機位置，照到 particle 們，為後面動作做準備
+
+### step 3-1：將 particle 加上光暈
+
+<ImageCarousel
+  label="CG_HW07 slideshow 5"
+  images={[
+    { src: "/images/homework/computer-animation/hw07/compositing.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-012829.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-012358.png", caption: " " }
+  ]}
+/>
+
+1. 進入 compositing 面板，現在會看到一片黑，先勾選 use node，便可以開始加入節點
+2. 使用 glare node 可以為物體增加光暈效果，我加入了兩個不同的 glare 來疊加，接著加入 lens distortion 可以產生鏡頭畸變，增加效果
+3. 按下 f12 渲染出一張圖，就可以在背景看到預覽圖了
+
+### step 4-1：調整攝影機位置、設定 keyframe，作品完成！
+
+<ImageCarousel
+  label="CG_HW07 slideshow 6"
+  images={[
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-013141.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-013833.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-014042.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw07/2026-04-13-014525.png", caption: " " }
+  ]}
+/>
+
+1. 以下的參數區中，我將設定一些 keyframe，並設定動畫時長為 frame = 192
+- 將 particle number 由 10 變到 1000
+- 將 particle size 由 1 變到 3
+- 將 particle rotation speed 由 2 變到 5 再變到 2，製造出慢慢變凌亂又變平緩的感覺
+- 最後 Particle contraction and divergence 是控制 particle 發散，所以設置它從 1 變到 0
+2. 在 compositing 這裡，我也有設定光暈和鏡頭 畸 變的 keyframe，讓 particle 可以從光暈很發散到聚焦一些的感覺
+3. 最後是攝影機運動，我將攝影機從拍攝一顆 particle 到慢慢往後往上拉，最後稍稍旋轉到拍攝出 particle 們的完整狀態，這樣就設置完畢了
+4. 最後依據作業要求，渲染成 1920x1080 的影片，和 3840x2160 的圖檔，animation 就完成了！
+
+## 自我評量與作品建議
+
+**8/10**
+
+這次製作過程還算順利，沒有遇到什麼太大的問題，可能是因為大部分的 node 都使用上課做的內容，只有自己加入少許的節點來完成作品。
+此外，這也是使用 blender 後，第一次接觸 composting 和 shading 面板，感覺這裡可以製作出很多有趣的環境效果和特效，之後有時間可以多多研究。
+**過程中遇到的困難：**
+這次沒有遇到什麼困難，唯一的問題就是渲染圖片非常慢，可能是 Resolution 太大，導致花非常久時間在渲染
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過上課製作的檔案與詢問 ai 來解決問題 。
+另外也看幾個教學影片
+- 關於 Particle 的：
+- [https://www.youtube.com/watch?v=8RYW4s2i0E8](https://www.youtube.com/watch?v=8RYW4s2i0E8)
+- [https://www.youtube.com/watch?v=6EhI5ijIIVE](https://www.youtube.com/watch?v=6EhI5ijIIVE)
+
+**HW04同儕學習觀摩**
+
+我臨摹的是 110405034 同學的作品，但因為網頁的截圖與說明較少，所以製作時有碰到一些小問題，以下給出一些建議
+**建議：**
+- proximity 這個 node group 中的「內容」在網頁上有截圖，但沒有說明它要被群組成 node group，而是細看 node 才能推敲出來，建議補上這個流程
+- slice Plane 沒有寫出需要轉成垂直於 y 軸，且沒有附上 slice Plane 的任何截圖。另外，建議可以截圖 driver 的部分，寫出需要輸入什麼數值（目前只有寫在最後的解決問題中），若沒學過 blender 的 driver 會無法得知如何自動控制參數數值。
+- 或許可以在製作功能性 geometry node 時，可以先放上所有內容節點的截圖，再放上 group 好的 geometry node group 截圖。和製作流程相同，會比較容易理解 因為有學過這週的課程，才順利解決上述問題，製作出最終成果。建議網站內容可以再詳細一些，會比較好看懂。

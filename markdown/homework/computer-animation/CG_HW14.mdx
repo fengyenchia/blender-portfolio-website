@@ -1,0 +1,116 @@
+<MarkdownMeta
+  hours={1.5}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1Ind11wHrcEpj44gHpxEEWx_Qi6rRrv31?usp=drive_link" }
+  ]}
+/>
+
+**可調式參數控制區操縱影片**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/ctmwbL0Y7QE" title="YouTube video 1" />
+
+**成果影片**
+
+<YouTubeEmbed src="https://www.youtube.com/embed/2_vXP4CNmns" title="YouTube video 2" />
+
+## 作品技術概念
+
+以 Procedural 方式製作生鏽材質動畫，其中需有一個 group input 能進行無生鏽、生鏽樣貌的調整（一次調整 Base Color、Metallic、Roughness、Normal），並將調整的參數和模型本身的可調式參數放進同一個 UI 裡面。
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw14/2026-05-29-203503_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<ImageCarousel
+  label="CG_HW14 slideshow 1"
+  images={[
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-203756.png", caption: "GN 面板：製作齒輪模型" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-203854.png", caption: "GN 面板：加上 set meterial，之後設定材質。前面加上三個 store named attribute，用來存輸入的參數值" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204415.png", caption: "shading 面板：用 noise texture 製作材質，調整顏色，兩色的金屬度、粗糙度" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204435.png", caption: "shading 面板：調整兩色的 normal 凸出量" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204642.png", caption: "shading 面板：將 shading 面板的材質 node 群組後，在 group 前面加入三個 attribute，名字分別要和之前設定的 store named attribute 一致，用來接收參數值" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204549.png", caption: "GN 面板：在控制旋轉的 transform geometry 前加入 store named attribure 和 position，存入物體位置" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204622.png", caption: "shading 面板：在 noise texture 前加入 mapping  和位置的 attribute，讓材質可以跟著物體位置旋轉" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-230837.png", caption: "完整 GN 面板的 node" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-231240.png", caption: "完整 shading 面板的 node" },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-231300.png", caption: "完整 shading 面板的 node" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：製作生鏽材質
+
+<ImageCarousel
+  label="CG_HW14 slideshow 2"
+  images={[
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-203756.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-203854.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204415.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204435.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204642.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-210146.png", caption: " " }
+  ]}
+/>
+
+1. 先製作一個要生鏽的基礎模型，這裡我用之前上課做過的齒輪。透過 star 可以產生基本形狀，用 fillet curve 可以做倒角，再將中間切一個圓。透過 fill curve 填滿，再擠出厚度
+2. 用 set meterial 加上材質，前面的 store name attribute 之後再設定
+3. 進入 shading 面板，加入一個 noise texture 作為生鏽紋理，後面的顏色、金屬度、粗糙度、法向我會用上課檔案去改（要改成可以在可調式參數區操控生鏽數值）
+- 首先先調整顏色，用 color ramp 選 constant 可以做出雙色之間沒有過渡，而這邊要換成 map range + greater than 的作法，設定一個參數叫做 rust，將 rust 連到 map range 的 value（並限制 rust 數值在 0~1 之間）
+- 將 map range 的 result 和 noise texture 的 fac 都接入 greater than，這是可以取代 color ramp，若 noise texture &gt; rust 的值，就是不生鏽（因為我前面 to min 的數值調得比 to max 大，所以 rust 0~1 是不生鏽到生鏽）
+- 後面 mix 的 a、b 是基本色和生鏽色，都將它們接入 group input
+- 金屬 度 和粗糙度也是以同樣的方式調整
+- 法向比較不一樣，它要是平滑過度，所以 color ramp 就不 mute 掉，但這也用 map range + greater than，再把 greater than 的輸出接到 bump 的 strength，可以調整法向凸出程度
+4. 最後將所有 node 群組，並加入 3 個 attribute，用作接收可調式參數的數值（之後會用到，要先分別命名）
+5. 回到 geometry node 面板，在 set meterial 前加入 3 個 store name attribute（圖2），名字設定為和 shading 面板中的 attribute 一致，這樣就可以在可調式參數控制區調整數值與顏色了
+6. 圖6 是可調式參數控制區的設定
+
+### step 1-2：製作旋轉動畫
+
+<ImageCarousel
+  label="CG_HW14 slideshow 3"
+  images={[
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204549.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204622.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-204722.png", caption: " " }
+  ]}
+/>
+
+1. 做完材質後，我要幫齒輪加上動畫，做法和上課教的一樣，以 scene time 搭配 combine XYZ 與 transform geometry 的 rotate 控制依時間延 z 軸旋轉
+2. 目前播放動畫可以看到材質沒有在動，所以需要將目前物體的位置告訴材質
+- 在 transform geometry 前加入 store named attribute，並把 position 值輸入進去
+- 切到 shading 面板，在 noise texture 前加入 mapping 和 attribute，這可以把位置值輸入給 mapping 做映射，這樣材質就會跟著轉了
+3. 圖3 是目前的完成圖
+
+### step 1-2：加入燈光與調整攝影機
+
+<ImageCarousel
+  label="CG_HW14 slideshow 4"
+  images={[
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-223153.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw14/2026-05-29-223227.png", caption: " " }
+  ]}
+/>
+
+1. 最終生鏽動畫都製作完後，就加入兩盞燈光，讓場景亮一點
+2. 加入一點攝影機從近到遠的運動，就完成了
+
+## 自我評量與作品建議
+
+**9/10**
+
+這次內容大部份都是上課完成的，只有稍微調整幾個節點，所以完成得很快。
+**遇到的困難：**
+過程中我不會將 shading 面板的參數放進 geometry node 面板的可調式參數區裡，因為加入 set meterial 後可調整的參數不會出現，問了 ai 後才知道可以用 store named attribute 將數值儲存給材質，並在 shading 面板中，用 attribute 接收材質，這樣就解決問題了。
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過上課製作的檔案來解決問題。

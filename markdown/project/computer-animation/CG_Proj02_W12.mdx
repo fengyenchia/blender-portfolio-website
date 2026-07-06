@@ -1,0 +1,113 @@
+<MarkdownMeta
+  hours={3}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1ij5KNGolq-sMgTOE-jJymbIUkgwkHA6P?usp=drive_link" }
+  ]}
+/>
+
+**Blender 檔案（齒輪）**
+
+## 作品技術概念
+
+這個禮拜開始思考 project 02 要做什麼樣的機械時鐘、研究機械鐘構造與實際製作看看。
+我想做包含： **100天轉一圈、****時針、粉針、秒針**的齒輪結構，轉速比為 1：200：2400：144000。
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project02-w12/2026-05-18-034645_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<ImageCarousel
+  label="CG_Proj02_W12 slideshow 1"
+  images={[
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-112258.png", caption: "首先用 star 建立一個星形曲線，當齒輪的主體，再透過 points 設定齒數。加入一個 fillet curve，將尖角轉呈圓弧狀，塑造出齒輪的樣子。接著透過 full curve 來填充曲線成面，最後設定材質與用 extrudeNew 擠出厚度就完成一個齒輪了" },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-112826.png", caption: "用 transform geometry 來控制齒輪位置與旋轉，並透過 scene time 與 combine XYZ 讓齒輪隨時間沿 z 軸轉動，可以在加上 multiply 來控制速度" },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-112926.png", caption: "分針齒輪結構" },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-113100.png", caption: "秒針齒輪結構" },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-113120.png", caption: "時針齒輪結構" },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-113211.png", caption: "天針齒輪結構" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1： 研究機械鐘構造
+
+<ImageCarousel
+  label="CG_Proj02_W12 slideshow 2"
+  images={[
+    { src: "/images/project/computer-animation/project02-w12/2026-05-17-214201.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-17-222519.png", caption: " " }
+  ]}
+/>
+
+我透過這支影片來了解鐘錶內部的齒輪構造，以幫助我設計齒輪結構
+[https://www.youtube.com/watch?v=24TrIRIJcaY](https://www.youtube.com/watch?v=24TrIRIJcaY)
+從影片中我學習到：
+1. 齒輪比 a:b，轉速比就會是 b:a
+2. 此結構需要透過一個重捶來引入動力，來讓第一個齒輪開始轉動，從而連動其他齒輪。不過若只有 重捶，齒輪會快速旋轉將能量釋放，所以需要一個 [擒縱器](https://zh.wikipedia.org/zh-tw/%E6%93%92%E7%BA%B5%E5%99%A8) ，單擺以每秒擺動一次的頻率來卡住擒縱輪，讓重錘的動力可以每秒釋放一次
+
+### step 1-2： 實際製作齒輪
+
+<ImageCarousel
+  label="CG_Proj02_W12 slideshow 3"
+  images={[
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-112258.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-112826.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-112926.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-113100.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-113120.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-113211.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-115224.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-115424.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-115611.png", caption: " " }
+  ]}
+/>
+
+1. 首先用 star 建立一個星形曲線，這是齒輪的主體，再透過 points 設定齒數
+- 加入一個 fillet curve，這可以將兩條曲線的相交銳角或鈍角轉換成圓弧狀，塑造出齒輪的樣子
+- 接著透過 full curve 來填充曲線成面，最後設定材質與用 extrudeNew 擠出厚度就完成一個齒輪了
+- 因為我是做雙層齒輪來減少體積與增加傳動比，所以需要在後面加上一個 cylinder 來讓兩個齒輪連動
+2. 再來是讓齒輪旋轉
+- 我用 transform geometry 來控制齒輪位置與旋轉，並透過 scene time 與 combine XYZ 讓齒輪隨時間沿 z 軸轉動，可以在加上 multiply 來控制速度
+3. 因為每個齒輪的做法都是一樣的，所以就不再詳細描述後面內容。不過要特別注意的是，轉速比和齒數比成反比，所以齒數越多，轉動速度會越慢，藉此推得時針、分針、秒針和天針的齒數。
+4. 圖 7~9 為成果圖，黃色齒輪為最終呈現的 時針、分針、秒針和天針
+
+### step 1-3：找一些鐘樓參考圖
+
+<ImageCarousel
+  label="CG_Proj02_W12 slideshow 4"
+  images={[
+    { src: "/images/project/computer-animation/project02-w12/yogyakarta-indonesia-public-clock-02.jpg", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/484494731-9373412306081036-6265428567119079057-n.jpg", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/2026-05-18-110004.png", caption: " " },
+    { src: "/images/project/computer-animation/project02-w12/nagaon-clock-tower.jpg", caption: " " }
+  ]}
+/>
+
+最後是收集資料，因為我想做鐘樓造型的倒數計時機械時鐘，所以先上網找一些參考圖。
+圖片來源：
+[https://commons.wikimedia.org/wiki/File:Yogyakarta_Indonesia_Public-Clock-02.jpg](https://commons.wikimedia.org/wiki/File:Yogyakarta_Indonesia_Public-Clock-02.jpg)
+[https://www.facebook.com/photo/?fbid=4985592828196361&set=pcb.4985594038196240](https://www.facebook.com/photo/?fbid=4985592828196361&set=pcb.4985594038196240)
+[https://tw.pixtastock.com/photo/15711855](https://tw.pixtastock.com/photo/15711855)
+[https://www.facebook.com/photo/?fbid=4985592828196361&set=pcb.4985594038196240](https://www.facebook.com/photo/?fbid=4985592828196361&set=pcb.4985594038196240)[https://commons.wikimedia.org/wiki/File:Nagaon_Clock_Tower.jpg](https://commons.wikimedia.org/wiki/File:Nagaon_Clock_Tower.jpg)
+
+## 自我評量與作品建議
+
+**7 /10**
+
+這週時間較少，所以就只有簡單測試齒輪結構與思考作品輪廓。
+
+## 解決問題之能力與參考資源
+
+這週看的參考影片：
+**擒縱結構**[https://kknews.cc/science/kp2y6vr.html](https://kknews.cc/science/kp2y6vr.html)[https://www.youtube.com/watch?v=yfNFbE0ahi0](https://www.youtube.com/watch?v=yfNFbE0ahi0)
+行星齒輪系統 [https://shinwe.com.tw/principle-of-reducer/](https://shinwe.com.tw/principle-of-reducer/)
+**鐘錶運作原理** [https://www.youtube.com/watch?v=24TrIRIJcaY](https://www.youtube.com/watch?v=24TrIRIJcaY)

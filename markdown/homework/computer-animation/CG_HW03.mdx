@@ -1,0 +1,354 @@
+<MarkdownMeta
+  hours={10}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/u/1/folders/1PmMT8dwfkbnAtKMwRBuKdzQsZ3QSPzT3" }
+  ]}
+/>
+
+<div className="flex items-center justify-center gap-4">
+  <YouTubeEmbed src="https://www.youtube.com/embed/rHqVt8ejImE" title="YouTube video 1" />
+  <YouTubeEmbed src="https://www.youtube.com/embed/MWTTK5A0Il0" title="YouTube video 2" />
+</div>
+
+## 作品技術概念
+
+用 Geometry Node 製作政大 LOGO 的 Procedural 3D Modeling，並將 所有模型物件相關之 Geometry Nodes 集合在一個 NodeGroup 中，最後增加可調式參數控制區。
+最後發揮創意製作 Procedural Animation，Animation 時長為五秒鐘 (F=120)，以 keyframe 去控制每個物件的動畫細節。
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw03/nccu-logo_orig.png"
+    alt="element_settings.Image_30621876.default"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">element_settings.Image_30621876.default</p>
+</div>
+
+## 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw03/all_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+## 花瓣
+
+<ImageCarousel
+  label="CG_HW03 slideshow 1"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/01-1.png", caption: "建立平面，將底下兩個頂點合併。將上兩個頂點往上移，並調整大小與表面細分" },
+    { src: "/images/homework/computer-animation/hw03/01-2.png", caption: "用上週作業學到的方式，移動 Pivot 至圓心" },
+    { src: "/images/homework/computer-animation/hw03/01-3.png", caption: "增加材質與厚度" },
+    { src: "/images/homework/computer-animation/hw03/01-4.png", caption: "群組 nodes，命名為單片花瓣" },
+    { src: "/images/homework/computer-animation/hw03/01-5.png", caption: "透過迴圈，將此 NodeGroup 複製成花朵狀" },
+    { src: "/images/homework/computer-animation/hw03/01-6.png", caption: "將花挖洞" },
+    { src: "/images/homework/computer-animation/hw03/01-7.png", caption: "最後群組 nodes，命名為完整花瓣" },
+    { src: "/images/homework/computer-animation/hw03/01-8.png", caption: "因為最終整合時物體初始形狀是平面，但此花瓣的初始形狀是三角形，為了不被干擾，單獨存下花瓣形狀" }
+  ]}
+/>
+
+## 圓環
+
+<ImageCarousel
+  label="CG_HW03 slideshow 2"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/02-1.png", caption: "新增螺旋曲線，增加粗度，最後轉成面" },
+    { src: "/images/homework/computer-animation/hw03/02-2.png", caption: "調整圓環位置和材質" },
+    { src: "/images/homework/computer-animation/hw03/02-3.png", caption: "群組 nodes，命名為完整圓環" }
+  ]}
+/>
+
+## 文字
+
+<ImageCarousel
+  label="CG_HW03 slideshow 3"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/03-1.png", caption: "新增平面、合併成典，並擠出政字輪廓。將面轉成點，加入線條動畫" },
+    { src: "/images/homework/computer-animation/hw03/03-2.png", caption: "增加粗細，再轉成面" },
+    { src: "/images/homework/computer-animation/hw03/03-3.png", caption: "調整物件位置、加上材質與表面細分" },
+    { src: "/images/homework/computer-animation/hw03/03-4.png", caption: "群組 nodes，命名為政字" },
+    { src: "/images/homework/computer-animation/hw03/03-4-5.png", caption: "因為最終整合時物體初始形狀是平面，但此文字的初始形狀是政字，為了不被干擾，單獨存下政字形狀" },
+    { src: "/images/homework/computer-animation/hw03/03-5.png", caption: "大字的做法和政字相同" },
+    { src: "/images/homework/computer-animation/hw03/03-6.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/03-7.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/03-8.png", caption: "群組 nodes，命名為大字" },
+    { src: "/images/homework/computer-animation/hw03/03-8-5.png", caption: "因為最終整合時物體初始形狀是平面，但此文字的初始形狀是大字，為了不被干擾，單獨存下大字形狀" }
+  ]}
+/>
+
+## 外圈花
+
+<ImageCarousel
+  label="CG_HW03 slideshow 4"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/04-1.png", caption: "用貝茲曲線做單個花環，再轉成面" },
+    { src: "/images/homework/computer-animation/hw03/04-2.png", caption: "調整花環位置" },
+    { src: "/images/homework/computer-animation/hw03/04-3.png", caption: "加上材質與微調角度" },
+    { src: "/images/homework/computer-animation/hw03/04-4.png", caption: "群組 nodes，命名為單個外圈花" },
+    { src: "/images/homework/computer-animation/hw03/04-5.png", caption: "將 nodeGroup 放進迴圈，複製成花環形狀" },
+    { src: "/images/homework/computer-animation/hw03/04-6.png", caption: "調整位置、大小、角度" },
+    { src: "/images/homework/computer-animation/hw03/04-7.png", caption: "群組 nodes，命名為完整外圈花" }
+  ]}
+/>
+
+## 整合的 Logo
+
+<ImageCarousel
+  label="CG_HW03 slideshow 5"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/05-1.png", caption: "將個別做好的 node group 加入，並用 join geometry 整合" },
+    { src: "/images/homework/computer-animation/hw03/05-2.png", caption: "群組 nodes，命名為 Logo" }
+  ]}
+/>
+
+## 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/homework/computer-animation/hw03/time_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+### step 1-1：花瓣基本形狀
+
+<ImageCarousel
+  label="CG_HW03 slideshow 6"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-1-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-4.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-5.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-6.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-7.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-8.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-9.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-10.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-1-11.png", caption: " " }
+  ]}
+/>
+
+1. 首先新增 logo 參考圖與平面
+2. 進入 3D 視窗的 Edit Mode 合併底部兩頂點
+3. 再到 geometry nodes 裡，用 Scale Elements 調整花瓣大小、加上表面細分
+- 目前如圖4
+4. 透過獲得模型邊界位置、取得底部 y 軸數值，再透過乘以 -1 與 set position，將模型往上（反方向）移動，使 pivot 在 (0,0,0)
+- 目前如圖6
+5. 將此部分群組成**單片花瓣 node group**，. 並加入 repeat 迴圈中，做出 5 片花瓣
+6. 在**單片花瓣 node group**中新增材質
+- 目前如圖9
+7. 最後在**單片花瓣 node group** 中， 新增厚度與表面細分
+- 厚度為上課製作的**extrude noodeGroup**（圖11）
+
+### step 1-2：花瓣動畫
+
+<ImageCarousel
+  label="CG_HW03 slideshow 7"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-2-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-2-2.png", caption: " " }
+  ]}
+/>
+
+1. 因為要製作每片花瓣隨意旋轉的效果，所以先透過迴圈中的 Iteration 取得花瓣編號，透過模數計算出奇偶。最後經過一連串的計算與加上 keyframe，讓個花瓣的旋轉角度，能從正值到負值來回變動。
+2. 花瓣的可調式參數控制區如圖2
+
+### step 1-3：花瓣完成
+
+<ImageCarousel
+  label="CG_HW03 slideshow 8"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-3-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-3-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-3-3.png", caption: " " }
+  ]}
+/>
+
+1. logo 中間有個洞，在詢問 ai 後的得知：要在 迴圈後 新增一個圓，然後用 mesh boolean 去扣除重疊的部分（差集）
+2. 將目前做好的 nodes 群組成**完整** **花瓣 node group**
+- 最後成果如圖3
+
+### step 2-1：圓環基本形狀
+
+<ImageCarousel
+  label="CG_HW03 slideshow 9"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-4-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-4-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w4-4-3.png", caption: " " }
+  ]}
+/>
+
+1. 新增螺旋曲線，調整起始點位置、高度、半徑
+- 透過將 curve circle 節點接到 profile curve，可以調整線條粗細
+2. 調整圓環上下位置、新增材質
+- 目前如圖3
+
+### step 2-2：圓環動畫
+
+<ImageCarousel
+  label="CG_HW03 slideshow 10"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-5-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-5-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-5-3.png", caption: " " }
+  ]}
+/>
+
+1. 新增圓環**由大到小、逐漸出現的** keyframe
+2. 圓環 的可調式參數控制區如圖2
+3. 將目前做好的 nodes 群組成**完整圓環** **node group**
+
+### step 3-1：文字基本形狀
+
+<ImageCarousel
+  label="CG_HW03 slideshow 11"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-6-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-6-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-6-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-6-4.png", caption: " " }
+  ]}
+/>
+
+1. 新增一個平面，在編輯模式下按 m 合併到中心，形成一個點
+- 手動建模的部分：透過 m 將點 擠出「政」字
+- 在新增一個平面，以 同樣的方式擠出 「大」字
+2. 回到 geometry nodes 模式，將面轉成曲線，並加上 trim curve 節點，用來做線條動畫
+3. 將線轉成面，並增加粗度
+4. 加上材質與表面細分
+* 政與大的做法相同
+
+### step 3-2：文字動畫
+
+<ImageCarousel
+  label="CG_HW03 slideshow 12"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-7-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-7-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-7-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-7-4.png", caption: " " }
+  ]}
+/>
+
+1. 透過 trim curve 中，end 的數值從 0~1，可以讓文字慢慢出現、再加入文字上下移動的動畫
+2. 文字 的可調式參數控制區如圖2
+3. 將目前做好的 nodes 群組成**政** **字****node group**與 **大** **字** **node group**
+- 目前成果如圖4
+
+### step 4-1：外圈花環基本形狀
+
+<ImageCarousel
+  label="CG_HW03 slideshow 13"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-8-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-8-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-8-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-8-4.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-8-5.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-8-6.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-8-7.png", caption: " " }
+  ]}
+/>
+
+1. 因為外圈花環是不規則的，所以我想透過貝茲曲線來製作弧線，再增加曲線粗細，最後轉成面
+- 目前結果我如圖2
+2. 新增 set position 讓物件可以上下移動，加上材質與調整整體位置的節點
+3. 將目前做好的 nodes 群組成**單個外圈花** **node group**
+4. 透過迴圈將剛剛的 **單個外圈花** **node group**複製成花的形狀
+5. 最後加入 transform geometry 做整體微調
+- 目前成果如圖7
+
+### step 4-2：外圈花環動畫
+
+<ImageCarousel
+  label="CG_HW03 slideshow 14"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-9-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-9-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-9-3.png", caption: " " }
+  ]}
+/>
+
+1. 新增 keyframe，加入花環由小到大、稍微旋轉、上下移動的動畫
+2. 將目前做好的 nodes 群組成**完整****外圈花** **node group**
+3. 外圈 花環 的可調式參數控制區如圖3
+
+### step 5-1：整合所有物件與可調式參數控制區
+
+<ImageCarousel
+  label="CG_HW03 slideshow 15"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-10-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-4.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-5.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-6.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-7.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-8.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-9.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-10-10.png", caption: " " }
+  ]}
+/>
+
+因為作業要求有提到，要將所有模型物件相關之 Geometry Nodes 集合在一個 NodeGroup 中，所以要做最後的整合。
+1. 新增一個平面，命名為 Logo，並 加入 所有物件的 node group 節點，與 join geometry 節點，再把參數連到 group input
+2. 結果發現物件並沒有照原本做好的那樣，參數跑掉了、文字也長得很奇怪
+3. 詢問 ai 後得知，因為現在 Group Input 的 Geometry 孔輸入的是剛剛新增平面的形狀，而我的 花瓣與 文字形狀都不是從平面開始。
+- 花瓣是在編輯模式下做成的三角形開始
+- 文字是在編輯模式下擠出「政」與「 大 」的形狀開始
+4. 所以我要先到**完整花瓣、政字、大字**的 node group 裡，把 Geometry 孔輸入拿掉，換成用 Object Info 節點單獨接收物體形狀，並把剛剛 logo 物件的 geometry 孔都斷開連接
+- 圖 5 是詢問 ai 的結果
+5. 發現字沒有出現、花瓣也長的怪怪的，於是再次詢問 ai，得知原來 Object Info 節點會讀取 單獨製作的**完整花瓣、政字、大字**物件「最終算繪出來的樣子」，所以不是只讀取最初的形狀，而是經過修改器干擾的形狀。
+- 圖 7 是詢問 ai 的結果
+- 所以要將 單獨製作的 **完整花瓣、政字、大字** 物件的修改器全部刪掉
+6. 這樣 logo 物件就回到正常的模樣了
+7. 最後因為合併後有些 keyframe 跑掉，所以我重新打上 keyframe。最終的節點與可調式參數控制區如圖9
+8. 最後的最後，將所有節點群組成一個名為 Logo 的 NodeGroup，就完成了
+
+### step 5-2：最終設定：場景與渲染
+
+<ImageCarousel
+  label="CG_HW03 slideshow 16"
+  images={[
+    { src: "/images/homework/computer-animation/hw03/w3-11-1.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-11-2.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/w3-11-3.png", caption: " " },
+    { src: "/images/homework/computer-animation/hw03/time_1.png", caption: " " }
+  ]}
+/>
+
+1. 先新增一個平面當作場景，用節點調整平面的大小、材質
+- 目前成果如圖2
+2. 調整攝影機位置、燈光位置
+3. 整理所有物件
+4. 所有細節都設定好後，就開始渲染，完成作品！
+
+## 自我評量與作品建議
+
+**7/10**
+
+這次做了一個 5 秒的小動畫，不知道是因為加上材質還是筆電東西太多的問題，製作過程中卡了好多次。好險有批次存檔，才沒有在 blender 當機的時候，檔案救不回來。
+過程中花好多時間在調 keyframe，發現思考各個物件該怎麼動、如何變化很有趣，但要調整到大家都很和諧、看起來像一個整體，還是有一定難度，需要多看作品多練習。
+製作中也遇到好多困難，尤其是在熟悉的節點不夠多時，很容易發生「想做某件事，卻不知道要用什麼節點」的問題，所以除了看上課做的內容，也問了好多次 ai 來學習。
+這禮拜練習的內容有好多是面轉線（做了一些操作後），線再轉成面。我覺得這部分除了要知道節點的功能外，也要隨時保持邏輯清晰，知道物件目前的狀態是什麼才不會出錯。最後，雖然過程中花好多時間，但看到成果的那一刻還是覺得很有成就感！
+**過程中遇到的困難：**
+### step 1-3：在將花瓣挖洞時，發現花瓣中間一圈（被挖空的地方）會是有缺面的，問了 ai 但還是沒有解決，這是目前可以改進的地方。
+**step 3-2：** 在做文字動畫時，發現文字末端是中空的，比較不完美。雖然勾選 curve to mesh 中的 fill caps 可以解決此問題，但這樣形狀就變了，所以我最後還是維持不勾選，但或許之後需要找到中空問題的解決方法。
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過上課製作的檔案與詢問 ai 來解決問題。
+另外，在完成作業後因為對 repeat 節點搭配 join 節點的用法還想再了解，且覺得用 repeat 節點中的 iteration 很方便也比較直觀（比起累加而言），所以就問了 ai 相關內容，並請它幫忙整理[（筆記連結)](https://gemini.google.com/share/4798058d6b02)， 也自行在 blender 練習了[（練習檔案）](uploads/1/5/5/0/155080834/repeat___join.blend)。

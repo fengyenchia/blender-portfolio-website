@@ -1,1 +1,562 @@
-# GD_Proj01
+<MarkdownMeta
+  hours={[
+    "[week06] 7 小時（修改 logo 模型）+ 3 小時（製作 Articulate）",
+    "[week08] 9 小時（完善模型 + 製作 animation）+ 12 小時（render）",
+    "[week09] 0.5 小時（ UI操控影片 ）"
+  ]}
+  links={[
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1v0xllLr_i_b2ch2kC5LiDj7PqZ-tf-GK?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1def-owUnOdimMNiLBUmggqWUzlYPMCyT?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1KoM4CSVo1V30ke9teowykZKdJ-LbtWp1?usp=drive_link" },
+    { label: "File Link", text: "File Link", href: "https://drive.google.com/drive/folders/1guHDgEsHSHJ9UXTLNBQb-GMXQGY8eEhS?usp=drive_link" }
+  ]}
+/>
+
+**Blender 檔案（logo）**
+
+**Blender 檔案（以幾何製作可活動機構）**
+
+**3D Printing Ready 檔（.blend）**
+
+**3D Printing Ready 檔（.stl）**
+
+## 作品技術概念
+
+3D Printing
+1. 將 logo 模型再次修改，讓它不只是 2D 的樣子，而是以立體的角度去思考，並實際調整出來。最後以 Measureit 測量模型尺寸，並展示各角度圖片。
+2. 為模型設計可拆卸或可活動機構（Articulate），讓模型與平面底盤銜接、模型部位拆解共有至少四個分開的部分。並實際以簡單幾何體製作出結構，最後準備好 in scale 的 3DPrinting Ready 的模型。
+Animation
+1. 製作動畫的分鏡腳本，至少包含 6 顆鏡頭。
+2. 延續先前製作的 Procedural NCCU LOGO Animation， 以 Geometry Nodes 製作 含音樂的 片頭動畫，包含該 Animation 的 Breakdown，共不超過 60sec。內容包含 Particle Effects、Mechanical Ideas。 Animation時長至少三十秒(F=720)，Breakdown時長至少三十秒(F=720)。
+3. 完成最終 Animation 的 3D 模型，延伸為 3D 列印實體的版本。
+4. 這次 project 我製作了一個充滿秘境感的建築，讓建築慢慢的生長，周圍充滿小光點來營造氛圍。
+**作品理念**
+此作品是以政大 logo 為出發點，將 logo 延伸製作成有立體感的模型，初步模型製作過程在 [HW04](hw04.html) 可以看到。
+我將模型設計成由許多植物（樹葉、樹枝、藤蔓）與生物（螢火蟲）所組成的建築物，底部附有座位區，供前來的觀眾可以休憩。四周與建築物中央底部充滿螢火蟲，打造出環境是個夏日夜晚的休憩場所的感覺。
+模型中也設計了一些可活動機構， 透過各部分的解構或旋轉設計，讓整體變得有機，變得生動。
+
+**Articulate 3D NCCU LOGO 列印 -** 節點概念說明（附上實際節點、面數等截圖）
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/project01-stat-logo_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/project01-stat-particle_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/project01-stat_orig.png"
+    alt="image"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+</div>
+
+以下節點為新增加的部分，包含 logo 內圈圓柱體、螺旋結構、底盤與相關連結部分
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 1"
+  images={[
+    { src: "/images/project/computer-animation/project01/project01-node-1.png", caption: "這是外圍長度不一的圓柱，以 repaet node 複製多個，並從中調整尺寸與旋轉角度" },
+    { src: "/images/project/computer-animation/project01/project01-node-2.png", caption: "這是文字下方的螺旋結構，先用 spiral 製作出基本螺旋，並用 repeat node 複製出上下兩組" },
+    { src: "/images/project/computer-animation/project01/project01-node-3.png", caption: "製作螺旋頂、底部的圓盤" },
+    { src: "/images/project/computer-animation/project01/project01-node-4.png", caption: "合併螺旋與圓盤、用圓盤的形狀將螺旋末端切平整" },
+    { src: "/images/project/computer-animation/project01/project01-node-5.png", caption: "合併螺旋與圓盤、用圓盤的形狀將螺旋末端切平整" },
+    { src: "/images/project/computer-animation/project01/project01-node-6.png", caption: "將物件都合併" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-000841.png", caption: "將剛剛製作好的螺旋群組、複製另一份，其中一份只包含上螺旋結構（刪除群組中下螺旋部分），另一份反之亦然。" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-000935.png", caption: "製作底部旋轉結構：球體部分" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001001.png", caption: "製作底部旋轉結構：錐體部分" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001026.png", caption: "製作底部旋轉結構：這是要切除的圓環" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001017.png", caption: "製作底部旋轉結構 & 與底盤相連：先將底盤、nccu dct & 電腦動畫文字組合起來，再用 mesh boolean  減去圓環部分" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001606.png", caption: "所有 node group 如圖" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001907.png", caption: "目前模型所有的可調式參數" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001650.png", caption: "可調式參數控制區" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001703.png", caption: "可調式參數控制區" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001715.png", caption: "可調式參數控制區" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-001723.png", caption: "可調式參數控制區" }
+  ]}
+/>
+
+NCCU LOGO Animation **-** 節點概念說明（附上實際節點、面數等截圖）
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 2"
+  images={[
+    { src: "/images/project/computer-animation/project01/2026-04-20-002906.png", caption: "這是平面的node，為了在平面上長 particle，我先用 distribute points on faces 隨機分布點在面上，再用 instance on point 增加實體球在點上" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-002927.png", caption: "調整 particle 的位置，並用 noise texture 的 color 接口來控制 particle 的偏移量，達到 particle 的發散與收斂。最後用 join geometry 將平面與 particle 結合" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-003515.png", caption: "這是第二片 particle，做法與前面相同" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-003436.png", caption: "這是第三片 particle，做法與前面相同" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-004143.png", caption: "shading 面板的體積光設置" },
+    { src: "/images/project/computer-animation/project01/2026-04-20-004200.png", caption: "composting 面板的設置，透過 glare 增加光暈" }
+  ]}
+/>
+
+**Articulate 3D NCCU LOGO 列印 -** 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：思考模型如何變得更立體並修改
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 3"
+  images={[
+    { src: "/images/project/computer-animation/project01/profect01-1-1.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-2.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-3.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-4.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-5.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-7.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-8.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-9.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-10.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-11.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-12.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-13.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-14.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-6.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/profect01-1-15.png", caption: " " }
+  ]}
+/>
+
+在思考模型的 Articulate 之前，我想先將原先模型不夠立體的模型修改一下，讓之後的製作比較有想法。現在它只是校徽的形狀，但我想做一個高樓感的物體，所以我上網搜尋[「螺旋建築」](https://www.google.com/search?q=%E8%9E%BA%E6%97%8B%E5%BB%BA%E7%AF%89)，看看相關圖片來累積靈感。
+**以下為模型修改過程：**
+1. 首先，我先將圓環與花瓣調高，變成一個立體高樓，再加上一些 cylinder 的結構
+2. 接著取消中間圓環，將原來的支撐縮短、複製很多個，但發現這樣電腦會很卡，所以需要修改方向
+3. 我將圓柱拉長，並設定它們的高度是由小至大，再將圓環接回去。經過陳時間思考與修改，我覺得目前（圖4）的樣子還算滿意。
+4. 新增的圓柱節點如圖5，先將 cylinder 匯入，再透過 transform geometry 調整尺寸與角度。接著用 repeat node 複製物件，過程中調整物件的角度與大小，讓整體有階梯式往上的感覺
+5. 因為目前文字是懸空的，原先的想法是增加一個圓柱給它，但剛好這週要思考模型的可活動機構，所以上網看了一些案例，就發現了這個影片（[https://youtube.com/shorts/dTGDKcJudHs?si=KymIS_6TPrBLmom4](https://youtube.com/shorts/dTGDKcJudHs?si=KymIS_6TPrBLmom4)），可以做類似螺旋紓壓玩具的結構。不過網路上沒有找到教學影片，就從這部短片中拆解它的結構來學習，把它運用在我的模型上（這會成為之後設計 Articulate 的其中一個結構 ）。
+6. 做好的結構如圖6、7、8，我將結構頂、底部加上輔助旋轉的圓盤，並將文字置於圓盤上，希望之後測試時能夠順利列印
+7. 再來是螺旋結構的節點設計
+- 先將 spiral 的主體製作出來，再透過 repeat node 每隔 120 度複製出下半部分的螺旋，上半部分也是同樣的步驟，只不過整體要多轉 60 度，讓螺旋結構可以交錯。
+- 再來設計圓盤，我用 cylinder 產生一個圓柱體，再將內側縮小。因為我放進切片軟體測試時發現，若內外半徑都相等，會有大量的支撐要印，所以要讓半徑從中間螺旋大小慢慢放大到文字大小
+- 因為螺旋上方不是平的，所以要透過 mesh boolean 來切，我用圓盤當作減去的對象，把螺旋都切平整
+- 最後用 mesh boolean 取聯集就做好了
+8. 為了將各物件的底部都對整齊，我會將圖13的節點加入各物件 node group 的偏後面，用於將底部設為 z=0，來進行整體物件位置的調整，這樣列印出來也會更好看
+9. 為了之後可以更靈活的控制，我將每個物件的可調式 參數 控制區整理了一下，把各物件都再分群放好，最後微調數值， 模型就大致調整好了！
+10. 最終成果如圖15，不過目前花瓣部分還是未和其他東西連接的，之後會設計 Articulate 來完成這部分
+
+### step 1-2：練習產出 Printing Ready Model
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 4"
+  images={[
+    { src: "/images/project/computer-animation/project01/project01-2-1.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-2.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-3.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-4.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-8.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-9.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-13-1.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-14-1.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-2-15-1.png", caption: " " }
+  ]}
+/>
+
+1. 為了要產出 Printing Ready Model，需要在 blender 做一些設定
+- 預設 blender 會以公尺作為單位，所以須先在場景終將單位設置成 millimeters，並將 unit scale 改為 0.001，這才是切片軟體上的尺寸單位
+- 不過調整後視圖區的網格距離就變大了，這樣不好對尺寸。所以要將 viewport overlays 中，grid的尺寸調小 1000 倍
+- 這樣就設置完成了
+2. 再來是確定原點在 (0,0,0)，目前 3D 游標在 (0,0,0)，所以只要按滑鼠右鍵，將原點設置在 3D 游標即可
+3. 這樣就完成 Printing Ready Model 了，放進切片軟體檢查可以看到，尺寸與 Blender 上看到的一致
+4. 接著透過 Measureit 來展示尺寸，但因為這個插件是在編輯模式下選擇網格的點來測量，而目前用 GN 做出模型 不是真實存在的網格，所以要先另外存一個檔，再把 GN 的修改器 應用，才可以開始量。
+- 上視圖（圖7）
+- 正視圖（圖8）
+- 側視圖（圖9）
+
+### step 2-1：設計可拆卸或可活動機構
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 5"
+  images={[
+    { src: "/images/project/computer-animation/project01/project01-3-2.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-3-3.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-3-1.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-3-4.png", caption: " " }
+  ]}
+/>
+
+1. 這次要設計至少三個 Articulate，且最終會有至少四個分開的模型（包含個部分與底盤）。我先思考哪些部分適合做：
+- 文字的螺旋結構（上面以實際製作出來）
+- 花瓣整片上下轉動 or 將花瓣沿圓心切分成三塊，做出魚骨的感覺
+- 底部外圈花環與圓柱自己旋轉 or 做一個卡榫（這是和 底盤之間的結構 ）
+目前想到以上幾個，接著就是用簡單的幾何試做出來。
+
+### step 2-2：以簡單方塊 or 幾何體製作設計好的機構
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 6"
+  images={[
+    { src: "/images/project/computer-animation/project01/project01-4-1.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-2.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-3.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-4.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-5.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-6.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-7.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-8.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-9.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-10.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-11.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-12.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-13.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-14.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-15.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-16.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/project01-4-17.png", caption: " " }
+  ]}
+/>
+
+1. 首先是螺旋結構，我將先前在 logo 做的結構單獨拿出，放進切片軟體後，發現中間會需要印很多支撐。因為模型是中空的，而頂部的圓柱下方是一個大圓，所以它會懸空。於是我將那個圓再調小，縮小到整體成圓椎型，放入切片軟體後，支撐就少了很多。
+2. 再來是花瓣的兩種結構：
+- 第一個 我先製作可以整片轉動的結構，以球形當作旋轉體，像是關節一樣，可以 360 度旋轉
+- 第一個 是魚骨的結構，以鎖鏈的方式連接各部分就完成了
+3. 最後是底部外圈花環與圓柱的兩個結構：
+- 第一個我以圓環當作旋轉軌道，將下方的立方體以圓環挖洞。上方用球體當作滑動的物體，向上接入圓錐與圓柱，模擬logo模型中外圈花環的樣子
+- 第二個是較簡單的卡榫結構，以ㄧ凹一凸去組合，中間的部分是六角柱，讓結構不容易鬆脫
+4. 建好模後，檢查 blender 裡面數值單位是否和切片軟體一致，並確定原點都在 (0,0,0)，就完成了 in scale 的 3DPrinting Ready 模型了。最後輸出成 .stl 檔，放入切片軟體看看。
+
+### step 3-1：將設計好的機構加在 nccu logo 模型上
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 7"
+  images={[
+    { src: "/images/project/computer-animation/project01/2026-04-19-144834.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-145330.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-145331.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-145441.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-145449.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-145555.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-150320.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-150842.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-151006.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-151219.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-151220.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-155931.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-155942.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-155951.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-155959.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-160021.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-155114.png", caption: " " }
+  ]}
+/>
+
+我最終選擇加上 螺旋結構、 花瓣 整片轉動的結構、 底部外圈花環與圓柱的 旋轉結構
+1. 首先，螺旋分為上下螺旋兩部分，這樣做是因為之後動畫需要單獨移動上螺旋。將做好的兩部分用 join geometry 結合，再加上材質就完成了
+2. 再來是底部旋轉結構，分為球體、圓錐體、還有要切除的圓環（旋轉軌道）。球體和圓錐體製作方式接近，都是先製作一個再用 repeat node 複製成四份，最後加上材質就完成了。
+- 因為要 切除的圓環（旋轉軌道）是切在 底盤 上，所以先不用在這裡製作
+- 先將剛剛製作好的 node 群組成 node group 加入 logo 中
+3. 再來製作花瓣的旋轉結構，我先把各部分做好，再用 boolean 修改器去做聯集和差集，五個花瓣的做法都一致，，如圖7
+4. 接著開始做要切除的圓環，透過 curve circle 可以很方便地修改圓環半徑與粗細。做好後將它群組成 node group（命名為 tours），最後將 底盤 、「nccu dct」 文字、「電腦動畫」文字用 join geometry 結合，再用 mesh boolean 減去剛剛的 tours，完成有軌道的平板
+5. 螺旋結構、底部旋轉結構、平板最終都放入 logo 中，如圖11
+6. 現在已經製作好 logo 模型了，如圖12-16
+7. 實際尺寸如圖17
+
+### step 4-1：實際列印 logo 模型
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 8"
+  images={[
+    { src: "/images/project/computer-animation/project01/2026-04-21-095107.png", caption: "前視圖" },
+    { src: "/images/project/computer-animation/project01/2026-04-21-095125.png", caption: "側視圖" },
+    { src: "/images/project/computer-animation/project01/2026-04-21-095143.png", caption: "後視圖" },
+    { src: "/images/project/computer-animation/project01/2026-04-21-095205.png", caption: "上視圖" },
+    { src: "/images/project/computer-animation/project01/2026-04-21-095225.png", caption: "透視圖" }
+  ]}
+/>
+
+此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135754.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135826.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135835.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135857.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135849.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135923.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/20260424-135931.jpg"
+    alt="此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">此模型的尺寸最終為 14 x 14 x 10.3 cm，列印成果如下圖</p>
+</div>
+
+<YouTubeEmbed src="https://www.youtube.com/embed/TfudVEBbm2k" title="YouTube video 1" />
+
+NCCU LOGO Animation **-** 技術概念說明、過程記錄截圖，至少5～10張截圖
+
+### step 1-1：提供可能採用的背景音樂（效）資料
+
+首先，要先為之後的 NCCU LOGO Animation 做準備，所以先尋找適合的音樂、音效。
+音樂的部分，我從此網站尋找（[https://incompetech.com/music/royalty-free/music.html](https://incompetech.com/music/royalty-free/music.html)），並從作者的 youtube 頻道找到音樂連結。我想讓動畫中的模型有一種生氣盎然、向上生長的有機感，所以挑選了 [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM) 這首音樂。
+- **備用音樂：******[Aquarium](https://www.youtube.com/watch?v=1LA9ygWniik)、[Long Road Ahead](https://drive.google.com/file/d/1-u8mAzMx7E7NFJPWGrxNfXOZBG2PxHMo/view?usp=drive_link)
+音效的部分，我在 [freesound](https://freesound.org/) 找了一些大自然的聲音，或是比較夢幻一些的音效。
+- [鳥叫聲 1](https://freesound.org/s/565418/)、[鳥叫聲 2](https://freesound.org/people/_MC5_/sounds/635148/)、[蟲鳴聲](https://freesound.org/s/751916/)
+- [魔法 1](https://freesound.org/people/olver/sounds/417860/)、 [魔法 2](https://freesound.org/people/Timbre/sounds/661463/)、[魔法 3](https://freesound.org/people/olver/sounds/417862/)
+以上這些是 可能採用的背景音樂、音效資料
+
+### step 1-2：分鏡腳本
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/cut1.png"
+    alt="step 1-2：分鏡腳本"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">step 1-2：分鏡腳本</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/cut2.png"
+    alt="step 1-2：分鏡腳本"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">step 1-2：分鏡腳本</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/cut3.png"
+    alt="step 1-2：分鏡腳本"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">step 1-2：分鏡腳本</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/cut4.png"
+    alt="step 1-2：分鏡腳本"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">step 1-2：分鏡腳本</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/cut5.png"
+    alt="step 1-2：分鏡腳本"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">step 1-2：分鏡腳本</p>
+</div>
+
+<div className="flex flex-col items-center justify-center">
+  <Image
+    src="/images/project/computer-animation/project01/cut6.png"
+    alt="step 1-2：分鏡腳本"
+    width={900}
+    height={506}
+    className="h-auto w-full max-w-3xl object-contain"
+  />
+  <p className="-mt-2 text-sm text-slate-500">step 1-2：分鏡腳本</p>
+</div>
+
+**[鏡頭一]**
+鏡頭：慢慢 dolly out
+畫面說明：在模型底部的小空間有一些發光體（螢火蟲）慢慢向外飄散。 目前的物件只有底座、底部外圈花環
+聲音說明：[魔法](https://freesound.org/people/olver/sounds/417860/)、[蟲鳴聲](https://freesound.org/s/751916/)
+**[鏡頭二]**
+鏡頭：慢慢 pedestal up
+畫面說明：中心（下半部）螺旋向上生長。目前的物件只有底座、底部外圈花環、中心（下半部）螺旋
+聲音說明： [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM)
+**[鏡頭三]**
+鏡頭：對著模型中心進行 arc shot
+畫面說明：外圈螺旋與外圈圓柱體慢慢出現。目前的物件只有底座、底部外圈花環、中心（下半部）螺旋、外圈螺旋與外圈圓柱體
+聲音說明： [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM)、 [魔法](https://freesound.org/people/olver/sounds/417860/)
+**[鏡頭四]**
+鏡頭：pedestal down 到定點後，慢慢 dolly in
+畫面說明：中心（上半部）螺旋慢慢旋轉往下，直到扣合下螺旋；同時花瓣長出來、隨意交錯地動 。目前的物件只有底座、底部外圈花環、中心（上、下半部）螺旋、外圈螺旋與外圈圓柱體、花瓣
+聲音說明： [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM)
+**[鏡頭五]**
+鏡頭：俯角、arc shot
+畫面說明： 「政」與「大」字慢慢寫出來 。目前的物件只有底座、底部外圈花環、中心（上、下半部）螺旋、外圈螺旋與外圈圓柱體、政大字
+聲音說明： [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM)
+**[鏡頭六]**
+鏡頭：慢慢 pedestal up 並 tilt down ，直到鏡頭照到模型正上方
+畫面說明： 發光體（螢火蟲）慢慢向內聚集到中央圓環。
+聲音說明： [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM) 、[魔法](https://freesound.org/people/olver/sounds/417860/)、[蟲鳴聲](https://freesound.org/s/751916/)
+
+### step 2-1：製作模型環境與場景
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 9"
+  images={[
+    { src: "/images/project/computer-animation/project01/2026-04-19-161752.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-161826.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-161839.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-162550.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-162836.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-163212.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-163701.png", caption: " " }
+  ]}
+/>
+
+我想要營造出秘境感，所以會用到許多 particle effect 來製作螢火蟲
+1. 先新增一個平面當作地面，透過 distribute points on faces 在平面上隨機散布一些點，再透過 instance on point 在點上放上球體，透過隨機值來控制點的位置、旋轉與大小，最後加上材質與可以讓particle發散和收斂的功能
+- 把這個 particle 與平面用 join geometry 結合，就完成了這部分
+2. 以相似的步驟為場景新增不同區域的 particle，成果如圖4
+3. 再來新增燈光，我一共加了6顆燈光來照亮整個場景與分鏡中需要特別被照亮的部分
+4. 接著增加體積光，讓環境中有霧氣的感覺，相關設定如圖6，density 越大霧氣會越多
+5. 最後在 composting 面板新增 glare 來創造光暈，加上一個 denoise 來降噪，就完成場景建立了
+
+### step 2-2：新增 logo 模型之 keyframe
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 10"
+  images={[
+    { src: "/images/project/computer-animation/project01/2026-04-19-165128.png", caption: " " }
+  ]}
+/>
+
+因為有先製作分鏡，所以物件的移動軌跡都已經想好了，這部分就製作的很快速。不過因為有許多 particle，導致畫面非常卡，無法 順利 看到動畫即時播放的畫面，只能從物件移動的開頭和結尾 frame 來設定 keyframe，會有點不確定其中過程是不是和我所想像的一致，總之 keyframe 設定就和分鏡寫的一致。
+
+### step 2-3：新增 6 顆鏡頭與攝影機運動
+
+<ImageCarousel
+  label="CG_Proj01 slideshow 11"
+  images={[
+    { src: "/images/project/computer-animation/project01/2026-04-19-015956.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-020112.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-19-170205.png", caption: " " },
+    { src: "/images/project/computer-animation/project01/2026-04-20-004804.png", caption: " " }
+  ]}
+/>
+
+因為有不同角度的攝影機，所以若只用一顆鏡頭來設定 keyframe 會有點太混亂，但場景中存在 6 顆鏡頭，渲染時 blender 會不知道該用哪一顆，我詢問 ai 後得知：要將攝影機綁定在標記位置上，相關內容如圖1~2
+1. 先在要切換攝影機的時間軸上按下 m 來標記
+2. 選擇這個時間點要切換的攝影機，再 選擇 剛剛的標記點，按下 ctrl+b 可以將攝影機綁定在時間軸上
+綁定完後在單獨為每個畫面設定攝影機運動的 keyframe，如圖3
+3. 第 3 和 第 5 顆鏡頭需要以 logo 模型為中心做旋轉，詢問 ai 後，得知要新增一個空體在 (0,0,0)，然後把空體設成父層，攝影機設成子層，旋轉空體就可以帶著攝影機做旋轉了
+4. 圖4視攝影機位置圖
+這樣所有設定就完成了，總共 frame=720，渲染成 png 再將音樂加上去就完成 logo 動畫了！
+
+### step 3-1：成果展示 Animation、Breakdown
+
+我最終使用的配樂是 [Morning](https://www.youtube.com/watch?v=OrpCSB4BuTM)
+"Morning" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+[http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/)
+音效的部分我選擇了 [蟲鳴聲](https://freesound.org/s/751916/) 、 [魔法 1](https://freesound.org/people/olver/sounds/417860/)
+
+<YouTubeEmbed src="https://www.youtube.com/embed/YzUtTatRpyM" title="YouTube video 2" />
+
+<YouTubeEmbed src="https://www.youtube.com/embed/xH-C_x_nSNw" title="YouTube video 3" />
+
+聽完老師的建議後，animation 修改如下
+
+<YouTubeEmbed src="https://www.youtube.com/embed/ma_jeTtdxag" title="YouTube video 4" />
+
+<YouTubeEmbed src="https://www.youtube.com/embed/JBwuebvwbLk" title="YouTube video 5" />
+
+### step 3-2：UI Demonstration
+
+<YouTubeEmbed src="https://www.youtube.com/embed/RIuY6nD7_VQ" title="YouTube video 6" />
+
+## 自我評量與作品建議
+
+**[week06] 9 /10 [week08] 8 /10**
+
+**3D Printing**
+**[week06]**原本只是單純的 logo 模型時，因為很單調，難以思考它可以有的可活動機構。但調整完模型成立體建築結構後，發現它可以變得很有趣，很多想法也隨之出現。此外，要設計出可活動機構不難，有難度的是印出來結構之間不會卡死，所以需等待上課時實際列印才能得知自己有沒有設計好。總結來說我對這次的 logo 模型修改很滿意，也期望之後它能夠順利印出來！
+**[week08]**在印製實際 logo 模型前，我先製作幾個簡單的結構並印製出來測試看看，發現最難的是：結構本身不能太大，因為它是要放在模型裡面的，但結構的公差不能太小，否則無法順利活動。這部分我來來回回改很多次，讓公差維持在 0.5~1.0mm 左右。
+**Animation**
+**[week08]**這次在做動畫時，因為有先寫好分鏡，所以製作起來會比先前順利，不過因為太卡了，沒辦法在視窗中看到動畫實際動的過程，只能先想像，渲染完後才能真正看到，所以也沒有花很多時間在調細節。
+**過程中遇到的困難：**
+大概就是圖片要渲染很久，我調整了一些設定（看看能不能降低品質加速渲染），結果還是很久...
+
+## 解決問題之能力與參考資源
+
+製作過程中，我透過詢問 ai 來解決調用攝影機的問題，相關內容放在上面綁定攝影機的圖片中 。
+**教學影片**
+- 關於 Articulating 3D Print 的：
+- [https://www.youtube.com/watch?v=y05kcJ8v_Y4](https://www.youtube.com/watch?v=y05kcJ8v_Y4)
+- [https://www.youtube.com/watch?v=AAKsl8zW-Ds](https://www.youtube.com/watch?v=AAKsl8zW-Ds)
+- [https://www.youtube.com/watch?v=flpUojhVc8M](https://www.youtube.com/watch?v=flpUojhVc8M)
+- [https://youtube.com/shorts/_aEgg4utwNI?si=ZKD91rDbnIRlnBXp](https://youtube.com/shorts/_aEgg4utwNI?si=ZKD91rDbnIRlnBXp)
